@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 МЮНХЕНСКИЙ КАЗИНО-ПОКЕР | СТРИМ-ШОУ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-purple: #0026ff;
+            --neon-gold: #f59e0b;
+            --neon-green: #10b981;
+            --neon-red: #ef4444;
+            --bg-dark: #060814;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: #e2e8f0;
+            font-family: 'Play', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 10%, #1e1b4b 0%, #060814 70%),
+                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 35px 35px, 35px 35px;
+        }
+
+        /* КЛАСС ДЛЯ ЭФФЕКТА ПОДГЛЯДЫВАНИЯ БАТИ через ОБС */
+        body.cheat-visible .card-back {
+            opacity: 0.12 !important;
+            filter: blur(2px);
+        }
+
+        .quest-container {
+            width: 100%;
+            max-width: 1280px;
+            background: rgba(10, 15, 30, 0.85);
+            border: 2px solid #1e293b;
+            border-radius: 24px;
+            padding: 35px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0, 242, 255, 0.05);
+            position: relative;
+        }
+
+        /* ХЕДЕР С НЕОНОВЫМ БАЛАНСОМ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1e293b;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 2.3rem;
+            background: linear-gradient(45deg, #00f2ff, #0026ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+            letter-spacing: 3px;
+        }
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .balance-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .balance-box {
+            background: #090d1a;
+            border: 2px solid var(--neon-blue);
+            padding: 12px 35px;
+            border-radius: 16px;
+            text-align: right;
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.15);
+            position: relative;
+        }
+        .balance-box span { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; display: block;}
+        .balance-box strong { display: block; font-size: 2.4rem; font-family: 'Orbitron', sans-serif; color: var(--neon-blue); text-shadow: 0 0 10px rgba(0, 242, 255, 0.5); }
+
+        /* КНОПКИ СТИЛЯ КИБЕРПАНК */
+        .btn-cyber {
+            background: #111827;
+            border: 1px solid #374151;
+            color: #9ca3af;
+            padding: 14px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-cyber:hover {
+            color: #fff;
+            border-color: var(--neon-blue);
+            background: rgba(0, 242, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .btn-action {
+            background: linear-gradient(135deg, #0026ff, #00f2ff);
+            color: #fff;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 38, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn-action:hover {
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+            transform: scale(1.03);
+        }
+
+        /* ИНСТРУКЦИЯ */
+        .rules-block {
+            display: none;
+            background: #0b0f19;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+        .rules-block h2 { font-family: 'Orbitron', sans-serif; color: var(--neon-gold); margin-bottom: 15px; font-size: 1.5rem; }
+        .rules-block h3 { color: var(--neon-blue); margin-top: 15px; margin-bottom: 5px; }
+        .rules-block ul { margin-left: 25px; margin-bottom: 15px; }
+        .rules-accent { color: var(--neon-gold); font-weight: bold; }
+
+        /* ПРОГРЕСС-БАР ИЗ 15 НЕОНОВЫХ СТУПЕНЕЙ */
+        .progress-timeline {
+            display: flex;
+            justify-content: space-between;
+            background: #04060f;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            border: 1px solid #151f32;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+        }
+        .step-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            position: relative;
+        }
+        .step-node:not(:last-child)::after {
+            content: ''; position: absolute; top: 18px; left: 50%; width: 100%; height: 3px;
+            background: #151f32; z-index: 1;
+        }
+        .step-node.passed_truth:not(:last-child)::after { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
+        .step-node.passed_trap:not(:last-child)::after { background: var(--neon-red); box-shadow: 0 0 10px var(--neon-red); }
+
+        .node-circle {
+            width: 38px; height: 38px; border-radius: 50%; background: #0f172a;
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; z-index: 2; border: 2px solid #1e293b;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #475569;
+        }
+        .step-node.active .node-circle { background: #0026ff; color: #fff; border-color: var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); transform: scale(1.15); }
+        .step-node.passed_truth .node-circle { background: rgba(16, 185, 129, 0.1); color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+        .step-node.passed_trap .node-circle { background: rgba(239, 68, 68, 0.1); color: var(--neon-red); border-color: var(--neon-red); box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+        .node-label { font-size: 0.7rem; color: #475569; font-family: 'Orbitron', sans-serif; font-weight: bold; }
+        .step-node.active .node-label { color: var(--neon-blue); text-shadow: 0 0 5px rgba(0, 242, 255, 0.5); }
+
+        /* ИГРОВАЯ ЗОНА: 3D КАРТЫ С КРАСИВЫМ ФЛИПОМ */
+        .game-desk {
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            margin-bottom: 45px;
+            perspective: 1000px; /* Важно для 3D вращения */
+            min-height: 360px;
+        }
+        .poker-card-wrapper {
+            width: 250px; height: 350px;
+            position: relative;
+            cursor: pointer;
+        }
+        .poker-card {
+            width: 100%; height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border-radius: 20px;
+        }
+        /* Состояние перевернутой карты */
+        .poker-card-wrapper.flipped .poker-card {
+            transform: rotateY(180deg);
+        }
+        .poker-card-wrapper:hover:not(.flipped) {
+            transform: translateY(-10px);
+            transition: transform 0.2s ease;
+        }
+
+        /* Стороны карты */
+        .card-face-side {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border-radius: 20px;
+            display: flex; flex-direction: column; padding: 25px;
+            border: 2px solid #1e293b;
+        }
+
+        /* РУБАШКА КАРТЫ */
+        .card-back {
+            background: radial-gradient(circle at 50% 50%, #060b24 0%, #02040a 100%);
+            border-color: #0026ff;
+            justify-content: center; align-items: center;
+            z-index: 2;
+        }
+        .card-back i {
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, var(--neon-blue), #0026ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.4));
+        }
+        .poker-card-wrapper:hover .card-back {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.2);
+        }
+
+        /* ЛИЦО КАРТЫ (РАСКРЫТОЕ) */
+        .card-front {
+            background: linear-gradient(135deg, #0b1329, #050814);
+            transform: rotateY(180deg);
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-front.is-truth { border-color: var(--neon-green); box-shadow: 0 0 30px rgba(16, 185, 129, 0.15); }
+        .card-front.is-trap { border-color: var(--neon-red); box-shadow: 0 0 30px rgba(239, 68, 68, 0.15); }
+
+        .card-type { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; letter-spacing: 1px; }
+        .card-type.truth { color: var(--neon-green); text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+        .card-type.trap { color: var(--neon-red); text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+        
+        .card-slot { font-size: 1.4rem; font-weight: bold; color: #fff; text-align: center; margin: 20px 0; display: flex; align-items: center; justify-content: center; flex-grow: 1;}
+        .card-cost { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--neon-gold); background: rgba(0,0,0,0.4); padding: 10px 20px; border-radius: 12px; border: 1px solid #1e293b; width: 100%; text-align: center; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+
+        /* ИВЕНТ ОВЕРЛЕЙ */
+        .event-overlay {
+            background: linear-gradient(135deg, #1e1b4b, #090514);
+            border: 2px solid var(--neon-gold); border-radius: 20px; padding: 35px;
+            display: none; text-align: center; margin-bottom: 40px;
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+        }
+        .event-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--neon-gold); font-weight: 900; margin-bottom: 15px; letter-spacing: 2px; }
+        .event-desc { font-size: 1.15rem; margin-bottom: 25px; color: #cbd5e1; white-space: pre-line; line-height: 1.6; }
+
+        /* ИНТЕРФЕЙС РЕЗУЛЬТАТОВ */
+        .payout-panel {
+            background: #090d1a; border: 2px solid #1e293b; border-radius: 16px;
+            padding: 25px; display: none; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .payout-input {
+            background: #04060f; border: 1px solid #334155; padding: 14px 20px;
+            border-radius: 12px; color: #fff; font-family: 'Orbitron', sans-serif; font-size: 1.3rem;
+            width: 280px; outline: none; text-align: center; transition: all 0.2s;
+        }
+        .payout-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
+        
+        /* ЖУРНАЛ С КРАСИВЫМИ ТЕГАМИ */
+        .logs-box {
+            margin-top: 35px; background: #04060f; border: 1px solid #151f32;
+            border-radius: 16px; padding: 20px;
+        }
+        .logs-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+        }
+        .logs-title { font-size: 0.85rem; color: #475569; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        .logs-content { height: 130px; overflow-y: auto; font-size: 0.95rem; color: #94a3b8; line-height: 1.5; padding-right: 5px; }
+        .log-line { margin-bottom: 6px; border-left: 3px solid #1e293b; padding-left: 10px; }
+        .log-line.success { border-left-color: var(--neon-green); color: #34d399; background: rgba(16, 185, 129, 0.03); }
+        .log-line.fail { border-left-color: var(--neon-red); color: #f87171; background: rgba(239, 68, 68, 0.03); }
+
+        .cheat-indicator {
+            position: absolute; bottom: -25px; left: 10px; font-size: 0.75rem;
+            color: #334155; cursor: pointer; transition: color 0.2s;
+        }
+        .cheat-indicator:hover { color: #475569; }
+    </style>
+</head>
+<body>
+
+    <div class="quest-container">
+        <!-- ХЕДЕР -->
+        <div class="header">
+            <div>
+                <h1>МЮНХЕНСКИЙ ЭКСПРЕСС</h1>
+                <div style="color: #475569; font-size: 0.95rem; margin-top: 5px; font-weight: bold; letter-spacing: 1px;">Психологический покер-батл Лёхи и Бати</div>
+            </div>
+            <div class="header-buttons">
+                <button class="btn-cyber" onclick="toggleRules()"><i class="fas fa-book-open"></i> Правила</button>
+                <button class="btn-cyber" onclick="resetQuest()" style="border-color: rgba(239,68,68,0.3);"><i class="fas fa-undo"></i> Сброс</button>
+                
+                <div class="balance-container">
+                    <div class="balance-box">
+                        <span>Капитал Марафона</span>
+                        <strong id="displayBalance">1 000 000 ₽</strong>
+                    </div>
+                    <button class="btn-cyber" style="padding: 18px;" onclick="promptManualBalance()" title="Изменить баланс вручную"><i class="fas fa-cog"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- КНИГА ПРАВИЛ -->
+        <div class="rules-block" id="rulesBlock">
+            <h2>📜 ПОЛНЫЙ СВОД ПРАВИЛ И ИНСТРУКЦИЯ КВЕСТА</h2>
+            <h3>1. Основная задача:</h3>
+            <p>Пройти цепочку из <span class="rules-accent">15 Ступеней</span>. Начальный капитал — <span class="rules-accent">1 000 000 рублей</span>. Минимальный лимит выживания на финише в Берлине — <span class="rules-accent">650 000 ₽</span>. Всё, что сохранено сверху — чистый триумф команды!</p>
+            
+            <h3>2. Как проходит обычный раунд:</h3>
+            <ul>
+                <li>Лёха полностью закрывает глаза. Батя прожимает хоткей <span class="rules-accent">Ctrl + B</span> (или кликает скрытую ссылку в самом низу под журналом).</li>
+                <li>Рубашки карт на стриме станут прозрачными. Батя видит, под какой картой скрыта <strong>😇 ПРАВДА (Дешевый слот)</strong>, а под какой <strong>💀 БЛЕФ (Капкан)</strong>.</li>
+                <li>Батя отжимает <span class="rules-accent">Ctrl + B</span>, Лёха открывает глаза. Начинается 1-2 минуты психологической дуэли. Батя убеждает или путает Лёху. Лёха выбирает карту на экране мышкой.</li>
+                <li>Запускается 3D-анимация. Сумма списывается, стримеры крутят бонуску. Выигрыш вносится в систему.</li>
+            </ul>
+
+            <h3>3. Уникальные Ивенты на пути:</h3>
+            <ul>
+                <li><strong>Ступень 4 (Немецкий патруль):</strong> Батя молчит. Лёха решает сам: дать взятку 50 000 ₽ (и автоматически поехать по сверхдешевому слоту) или угадывать карту вслепую без Бати.</li>
+                <li><strong>Ступень 8 (Бунт сына):</strong> Переворот ролей. Лёха подглядывает через Ctrl+B, Батя закрывает глаза и пытается угадать карту. Лёха вешает лапшу на уши Бате.</li>
+                <li><strong>Ступень 12 (Народный инвестор):</strong> Лёха крутит чат и выбирает случайного зрителя. Чаттер называет любой слот и покупку (от 20к до 150к). Если слот зрителя сыграет в плюс и выдаст от <strong>x200</strong> — Лёха скидывает зрителю 5 000 ₽, а если от <strong>x500</strong> — 10 000 ₽ с реального кошелька!</li>
+            </ul>
+            <button class="btn-action" style="margin-top: 15px; padding: 10px 25px; font-size: 0.8rem;" onclick="toggleRules()">Закрыть инструкцию</button>
+        </div>
+
+        <!-- ПРОГРЕСС ЛИНЕЙКА -->
+        <div class="progress-timeline" id="timeline"></div>
+
+        <!-- КАРТОЧКА СПЕЦ-ИВЕНТА -->
+        <div class="event-overlay" id="eventOverlay">
+            <div class="event-title" id="eventTitle">ИВЕНТ</div>
+            <div class="event-desc" id="eventDesc">Описание</div>
+            <div id="eventActions"></div>
+        </div>
+
+        <!-- ИГРОВОЙ СТОЛ (3D КАРТЫ) -->
+        <div class="game-desk" id="gameDesk">
+            <!-- Карта А -->
+            <div class="poker-card-wrapper" id="cardWrapperA" onclick="chooseCard('A')">
+                <div class="poker-card">
+                    <!-- Рубашка -->
+                    <div class="card-face-side card-back">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <!-- Лицо -->
+                    <div class="card-face-side card-front" id="cardFrontA">
+                        <div class="card-type" id="cardAType">ТИП</div>
+                        <div class="card-slot" id="cardASlot">СЛОТ</div>
+                        <div class="card-cost" id="cardACost">0 ₽</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карта Б -->
+            <div class="poker-card-wrapper" id="cardWrapperB" onclick="chooseCard('B')">
+                <div class="poker-card">
+                    <!-- Рубашка -->
+                    <div class="card-face-side card-back">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <!-- Лицо -->
+                    <div class="card-face-side card-front" id="cardFrontB">
+                        <div class="card-type" id="cardBType">ТИП</div>
+                        <div class="card-slot" id="cardBSlot">СЛОТ</div>
+                        <div class="card-cost" id="cardBCost">0 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВВОД РЕЗУЛЬТАТОВ -->
+        <div class="payout-panel" id="payoutPanel">
+            <div id="payoutPrompt" style="font-weight: bold; font-size: 1.1rem; text-align: center; width: 100%;">Результат бонуски:</div>
+            <input type="number" id="payoutInput" class="payout-input" placeholder="Сумма выигрыша в ₽">
+            <button class="btn-action" onclick="submitPayout()">Зафиксировать</button>
+        </div>
+
+        <!-- БОРТОВОЙ ЖУРНАЛ -->
+        <div class="logs-box">
+            <div class="logs-header">
+                <div class="logs-title"><i class="fas fa-terminal"></i> Бортовой журнал поезда Мюнхен-Берлин:</div>
+                <button class="btn-cyber" style="padding: 5px 12px; font-size: 0.75rem;" onclick="exportLogs()"><i class="fas fa-download"></i> Экспорт .TXT</button>
+            </div>
+            <div class="logs-content" id="logsContent"></div>
+        </div>
+
+        <!-- СЕКРЕТНЫЙ СЛОЙ УПРАВЛЕНИЯ -->
+        <div class="cheat-indicator" onclick="toggleCheatMode()">[Слой управления ОБС / Переключатель видимости (Ctrl + B)]</div>
+    </div>
+
+    <script>
+        // СТРУКТУРА КВЕСТА
+        const QUEST_DATABASE = [
+            { id: 1, type: "normal", truth: { slot: "Sugar Rush", cost: 20000 }, trap: { slot: "Sugar Rush 1000", cost: 100000 } },
+            { id: 2, type: "normal", truth: { slot: "The Dog House (30 Спинов)", cost: 15000 }, trap: { slot: "Dog House Megaways", cost: 70000 } },
+            { id: 3, type: "normal", truth: { slot: "Big Bass Floats My Boat", cost: 15000 }, trap: { slot: "Big Bass Mission Fishin'", cost: 120000 } },
+            { id: 4, type: "event", eventType: "patrol" }, 
+            { id: 5, type: "normal", truth: { slot: "Sweet Bonanza", cost: 20000 }, trap: { slot: "Sweet Bonanza 1000", cost: 150000 } },
+            { id: 6, type: "normal", truth: { slot: "Zeus vs Hades (ZEUS)", cost: 30000 }, trap: { slot: "Zeus vs Hades (HADES)", cost: 150000 } },
+            { id: 7, type: "normal", truth: { slot: "San Quentin (Мин)", cost: 20000 }, trap: { slot: "San Quentin (ТОП)", cost: 200000 } },
+            { id: 8, type: "event", eventType: "rebel" }, 
+            { id: 9, type: "normal", truth: { slot: "Tombstone RIP", cost: 15000 }, trap: { slot: "Mental", cost: 250000 } },
+            { id: 10, type: "normal", truth: { slot: "Razor Shark", cost: 30000 }, trap: { slot: "Razor Shark (Множитель)", cost: 180000 } },
+            { id: 11, type: "normal", truth: { slot: "Retro Tapes (Лёха)", cost: 40000 }, trap: { slot: "Retro Tapes (Батя вслепую)", cost: 120000 } },
+            { id: 12, type: "event", eventType: "viewer" }, 
+            { id: 13, type: "normal", truth: { slot: "Starlight Princess", cost: 30000 }, trap: { slot: "Olympus (Батя стопает)", cost: 130000 } },
+            { id: 14, type: "normal", truth: { slot: "Dog House Megaways (Липкие)", cost: 50000 }, trap: { slot: "Dog House Megaways (Дождь)", cost: 200000 } },
+            { id: 15, type: "final" } 
+        ];
+
+        let state = {
+            balance: 1000000,
+            currentStepIndex: 0,
+            truthCardLetter: 'A',
+            selectedCardLetter: null,
+            currentActiveCost: 0,
+            currentActiveSlot: "",
+            isCardPicked: false,
+            history: [],
+            stepResults: {} // сохранение цветов для пройденных нод {0: 'truth', 1: 'trap'}
+        };
+
+        // AUDIO ENGINE (Web Audio API без внешних файлов)
+        const AudioEngine = {
+            ctx: null,
+            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+            playTone(freq, type, duration, vol=0.1) {
+                this.init();
+                try {
+                    let osc = this.ctx.createOscillator();
+                    let gain = this.ctx.createGain();
+                    osc.type = type; osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.00001, this.ctx.currentTime + duration);
+                    osc.connect(gain); gain.connect(this.ctx.destination);
+                    osc.start(); osc.stop(this.ctx.currentTime + duration);
+                } catch(e){}
+            },
+            click() { this.playTone(600, 'sine', 0.08, 0.15); },
+            flip() { this.playTone(300, 'triangle', 0.2, 0.2); setTimeout(()=>this.playTone(450, 'triangle', 0.1, 0.1), 80); },
+            win() { 
+                let now = 0; 
+                [523.25, 659.25, 783.99, 1046.50].forEach((f,i) => {
+                    setTimeout(() => this.playTone(f, 'sine', 0.3, 0.15), now); now += 120;
+                });
+            },
+            fail() {
+                let now = 0;
+                [293.66, 246.94, 196.00].forEach((f,i) => {
+                    setTimeout(() => this.playTone(f, 'sawtooth', 0.4, 0.12), now); now += 180;
+                });
+            }
+        };
+
+        // ЗАГРУЗКА ИЗ LOCALSTORAGE
+        function loadGameState() {
+            const saved = localStorage.getItem('munich_quest_save_v2');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    state.balance = parsed.balance ?? 1000000;
+                    state.currentStepIndex = parsed.currentStepIndex ?? 0;
+                    state.stepResults = parsed.stepResults ?? {};
+                    state.history = parsed.history ?? [];
+                    return true;
+                } catch(e) { return false; }
+            }
+            return false;
+        }
+
+        function saveGameState() {
+            localStorage.setItem('munich_quest_save_v2', JSON.stringify({
+                balance: state.balance,
+                currentStepIndex: state.currentStepIndex,
+                stepResults: state.stepResults,
+                history: state.history
+            }));
+        }
+
+        function resetQuest() {
+            if(confirm("Вы уверены, что хотите полностью обнулить квест и начать заново с 1 000 000 ₽?")) {
+                localStorage.removeItem('munich_quest_save_v2');
+                state.balance = 1000000;
+                state.currentStepIndex = 0;
+                state.stepResults = {};
+                state.history = [];
+                document.getElementById('logsContent').innerHTML = "";
+                addLog("Игра полностью сброшена. Капитал обновлен до 1 000 000 ₽.", "info");
+                initGame();
+            }
+        }
+
+        // ИНИЦИАЛИЗАЦИЯ
+        function initGame() {
+            const hasSave = loadGameState();
+            renderTimeline();
+            updateBalanceDisplay();
+            
+            // Если логов нет в сейве, кидаем стартовый
+            if (state.history.length === 0) {
+                addLog("Поезд Мюнхен-Берлин готов к отправке! Батя, зажми Ctrl+B для просмотра карт.", "info");
+            } else {
+                // Перерисовываем логи из памяти
+                const container = document.getElementById('logsContent');
+                container.innerHTML = "";
+                state.history.forEach(h => {
+                    const el = document.createElement('div');
+                    el.className = `log-line ${h.type}`;
+                    el.innerHTML = h.text;
+                    container.appendChild(el);
+                });
+                // Закрашиваем пройденные ступени на таймлайне
+                for (let idx in state.stepResults) {
+                    const node = document.getElementById(`node_${idx}`);
+                    if (node) {
+                        node.classList.add(state.stepResults[idx] === 'truth' ? 'passed_truth' : 'passed_trap');
+                    }
+                }
+            }
+
+            loadStep(state.currentStepIndex);
+        }
+
+        function toggleRules() { AudioEngine.click(); const b = document.getElementById('rulesBlock'); b.style.display = (b.style.display === 'block') ? 'none' : 'block'; }
+        function toggleCheatMode() { document.body.classList.toggle('cheat-visible'); }
+
+        // ИЗМЕНЕНИЕ БАЛАНСА ВРУЧНУЮ
+        function promptManualBalance() {
+            AudioEngine.click();
+            let val = prompt("Введите новую сумму общего капитала марафона (₽):", state.balance);
+            if (val !== null) {
+                let num = parseFloat(val.replace(/\s/g, ''));
+                if (!isNaN(num)) {
+                    state.balance = num;
+                    updateBalanceDisplay();
+                    addLog(`Внимание! Баланс изменен вручную через панель управления на ${num.toLocaleString()} ₽.`, "info");
+                    saveGameState();
+                }
+            }
+        }
+
+        // РЕНДЕР СТУПЕНЕЙ
+        function renderTimeline() {
+            const container = document.getElementById('timeline');
+            container.innerHTML = '';
+            QUEST_DATABASE.forEach((step, idx) => {
+                const node = document.createElement('div');
+                node.className = `step-node`;
+                node.id = `node_${idx}`;
+                let icon = idx + 1;
+                if (step.type === 'event') icon = '<i class="fas fa-star" style="font-size:0.7rem"></i>';
+                if (step.type === 'final') icon = '<i class="fas fa-crown" style="font-size:0.7rem"></i>';
+                node.innerHTML = `<div class="node-circle">${icon}</div><div class="node-label">ST_${String(idx+1).padStart(2, '0')}</div>`;
+                container.appendChild(node);
+            });
+        }
+
+        // ЗАГРУЗКА ШАГА
+        function loadStep(index) {
+            if (index >= QUEST_DATABASE.length) {
+                finishQuest();
+                return;
+            }
+
+            state.currentStepIndex = index;
+            state.isCardPicked = false;
+            state.selectedCardLetter = null;
+            
+            // Сброс 3D анимаций переворота
+            document.getElementById('cardWrapperA').classList.remove('flipped');
+            document.getElementById('cardWrapperB').classList.remove('flipped');
+            
+            document.getElementById('gameDesk').style.display = 'flex';
+            document.getElementById('payoutPanel').style.display = 'none';
+            document.getElementById('eventOverlay').style.display = 'none';
+
+            // Обновляем маркер текущего шага
+            QUEST_DATABASE.forEach((_, i) => {
+                const node = document.getElementById(`node_${i}`);
+                if(node) {
+                    node.classList.remove('active');
+                    if (i === index) node.classList.add('active');
+                }
+            });
+
+            const step = QUEST_DATABASE[index];
+            if (step.type === 'normal') {
+                setupNormalCards(step);
+            } else if (step.type === 'event') {
+                setupEventStage(step.eventType);
+            } else if (step.type === 'final') {
+                setupFinalStage();
+            }
+            saveGameState();
+        }
+
+        function setupNormalCards(step) {
+            state.truthCardLetter = Math.random() < 0.5 ? 'A' : 'B';
+            const trapLetter = state.truthCardLetter === 'A' ? 'B' : 'A';
+
+            // Настройка карт
+            configureCardFront(state.truthCardLetter, "😇 ПРАВДА (Безопасная)", "truth", step.truth.slot, step.truth.cost);
+            configureCardFront(trapLetter, "💀 БЛЕФ (Капкан)", "trap", step.trap.slot, step.trap.cost);
+            
+            addLog(`Ступень ${step.id}. Карты сгенерированы. Лёха отворачивается, Батя зажимает Ctrl+B.`);
+        }
+
+        function configureCardFront(letter, typeText, typeClass, slotName, cost) {
+            const front = document.getElementById(`cardFront${letter}`);
+            front.className = `card-face-side card-front is-${typeClass}`;
+            document.getElementById(`card${letter}Type`).innerText = typeText;
+            document.getElementById(`card${letter}Type`).className = `card-type ${typeClass}`;
+            document.getElementById(`card${letter}Slot`).innerText = slotName;
+            document.getElementById(`card${letter}Cost`).innerText = cost.toLocaleString() + " ₽";
+        }
+
+        // ОБРАБОТКА ИВЕНТОВ
+        function setupEventStage(type) {
+            document.getElementById('gameDesk').style.display = 'none';
+            const overlay = document.getElementById('eventOverlay');
+            const actions = document.getElementById('eventActions');
+            overlay.style.display = 'block';
+            actions.innerHTML = '';
+
+            if (type === 'patrol') {
+                document.getElementById('eventTitle').innerText = "🚨 НЕМЕЦКИЙ ДОРОЖНЫЙ ПАТРУЛЬ";
+                document.getElementById('eventDesc').innerText = "В купе ворвалась полиция! Подсказки Бати заблокированы.\nВы можете дать официальную взятку 50 000 ₽ копам и автоматически гарантировать себе дешевый безопасный слот, либо отказаться и выбрать карту абсолютно вслепую без Бати.";
+                actions.innerHTML = `
+                    <button class="btn-action" style="background:var(--neon-green); margin-right:15px;" onclick="handlePatrolDecision(true)">Заплатить 50,000 ₽</button>
+                    <button class="btn-action" style="background:var(--neon-red);" onclick="handlePatrolDecision(false)">Рискнуть без подсказок</button>
+                `;
+            } else if (type === 'rebel') {
+                document.getElementById('eventTitle').innerText = "🔄 БУНТ НА КОРАБЛЕ (СМЕНА РОЛЕЙ)";
+                document.getElementById('eventDesc').innerText = "Лёха перехватывает инициативу! Батя плотно закрывает глаза руками.\nЛёха зажимает Ctrl+B, смотрит карты и пытается загнать Батю в дорогой капкан красноречием!";
+                actions.innerHTML = `<button class="btn-action" onclick="startRebelRound()">Лёха посмотрел карты, погнали блефовать!</button>`;
+            } else if (type === 'viewer') {
+                document.getElementById('eventTitle').innerText = "🎰 НАРОДНЫЙ ИНВЕСТОР (ВЫБОР ЧАТА)";
+                document.getElementById('eventDesc').innerText = "Лёха крутит чат стрима колесиком мышки и тыкает в случайного зрителя!\nСчастливчик пишет в чат название СЛОТА и СУММУ бонуски (от 20 000 до 150 000 ₽).\n\n🎁 БОНУС ДЛЯ СТРИМА:\nЕсли бонуска зрителя дает занос от x200 — Лёха дарит ему 5 000 ₽.\nЕсли занос от x500 — Лёха переводит ему 10 000 ₽!";
+                actions.innerHTML = `
+                    <div style="margin-bottom:20px; display:flex; gap:15px; justify-content:center;">
+                        <input type="text" id="vSlot" class="payout-input" placeholder="Название слота" style="width:220px;">
+                        <input type="number" id="vCost" class="payout-input" placeholder="Сумма (20к-150к)" style="width:200px;">
+                    </div>
+                    <button class="btn-action" style="background:var(--neon-gold); color:#000;" onclick="submitViewerEvent()">Запустить народный слот</button>
+                `;
+            }
+        }
+
+        function handlePatrolDecision(isBribe) {
+            AudioEngine.click();
+            if (isBribe) {
+                state.balance -= 50000;
+                updateBalanceDisplay();
+                state.stepResults[state.currentStepIndex] = 'truth';
+                addLog("Лёха дал взятку патрулю! -50 000 ₽. Поезд едет дальше по дешевому тарифу.", "success");
+                activateSlotExecution("Big Bass (Патрульный сейв)", 15000);
+            } else {
+                addLog("Лёха отказался платить! Карты активированы, Батя дает обет молчания.");
+                document.getElementById('eventOverlay').style.display = 'none';
+                document.getElementById('gameDesk').style.display = 'flex';
+                setupNormalCards({ id: 4, truth: { slot: "Octobeer Fortunes", cost: 20000 }, trap: { slot: "Bier Haus Mega", cost: 130000 } });
+            }
+        }
+
+        function startRebelRound() {
+            AudioEngine.click();
+            document.getElementById('eventOverlay').style.display = 'none';
+            document.getElementById('gameDesk').style.display = 'flex';
+            setupNormalCards({ id: 8, truth: { slot: "Tombstone (Дешевая)", cost: 20000 }, trap: { slot: "Mental (Бунтарский ад)", cost: 200000 } });
+            addLog("Раунд запущен! Батя отгадывает, Лёха мастерски врет.");
+        }
+
+        function submitViewerEvent() {
+            const slot = document.getElementById('vSlot').value.trim();
+            const cost = parseFloat(document.getElementById('vCost').value) || 0;
+            if (!slot || cost < 20000 || cost > 150000) {
+                AudioEngine.fail();
+                alert("Ошибка! Укажите корректный слот и покупку строго от 20 000 до 150 000 ₽!");
+                return;
+            }
+            AudioEngine.win();
+            document.getElementById('eventOverlay').style.display = 'none';
+            state.stepResults[state.currentStepIndex] = 'truth';
+            activateSlotExecution(`Народный Выбор: ${slot}`, cost);
+            document.getElementById('payoutPrompt').innerHTML = `🎰 Бонуска зрителя в эфире! Играем <strong>${slot}</strong> за <strong>${cost.toLocaleString()} ₽</strong>.<br><span style="color:var(--neon-gold)">Множители: x200 = +5k зрителю, x500 = +10k зрителю!</span><br><br>Внесите итоговую сумму с экрана:`;
+        }
+
+        function setupFinalStage() {
+            state.truthCardLetter = Math.random() < 0.5 ? 'A' : 'B';
+            const trapLetter = state.truthCardLetter === 'A' ? 'B' : 'A';
+            const pot = state.balance;
+
+            configureCardFront(state.truthCardLetter, "👑 ФИНАЛ: ВА-БАНК В ОДНУ СЕССИЮ", "truth", "Единая мега-бонуска на ВСЕ ОСТАВШИЕСЯ ДЕНЬГИ в Sweet Bonanza 1000! Нажимают кнопку одновременно.", pot);
+            configureCardFront(trapLetter, "👑 ФИНАЛ: РАЗДЕЛЕНИЕ СИЛ", "trap", "Сумма режется 50/50. Половину крутит Батя в своем любимом слоте, половину Лёха в своем.", pot);
+            
+            addLog(`🚀 ФИНАЛЬНАЯ СТАНЦИЯ — БЕРЛИН! На кону абсолютно всё: ${pot.toLocaleString()} ₽!`);
+        }
+
+        // ВЫБОР КАРТЫ С КРАСИВЫМ ФЛИПОМ
+        function chooseCard(letter) {
+            if (state.isCardPicked) return;
+            state.isCardPicked = true;
+            state.selectedCardLetter = letter;
+
+            AudioEngine.flip();
+
+            // Анимация переворота обеих карт
+            document.getElementById('cardWrapperA').classList.add('flipped');
+            document.getElementById('cardWrapperB').classList.add('flipped');
+
+            const isTruth = (letter === state.truthCardLetter);
+            state.stepResults[state.currentStepIndex] = isTruth ? 'truth' : 'trap';
+            
+            const node = document.getElementById(`node_${state.currentStepIndex}`);
+            if (isTruth) {
+                if(node) node.classList.add('passed_truth');
+                setTimeout(()=>AudioEngine.win(), 400);
+                addLog(`Лёха прочитал Батю и нашел карту ПРАВДЫ!`, 'success');
+            } else {
+                if(node) node.classList.add('passed_trap');
+                setTimeout(()=>AudioEngine.fail(), 400);
+                addLog(`💀 Капкан захлопнулся! Лёха повелся на блеф Бати.`, 'fail');
+            }
+
+            const slotName = document.getElementById(`card${letter}Slot`).innerText;
+            const costText = document.getElementById(`card${letter}Cost`).innerText;
+            const cost = parseInt(costText.replace(/\s/g, ''));
+
+            setTimeout(() => {
+                activateSlotExecution(slotName, cost);
+            }, 1200);
+        }
+
+        function activateSlotExecution(slotName, cost) {
+            state.currentActiveCost = cost;
+            state.currentActiveSlot = slotName;
+            state.balance -= cost;
+            updateBalanceDisplay();
+
+            document.getElementById('payoutPanel').style.display = 'flex';
+            document.getElementById('payoutPrompt').innerHTML = `Крутим слот: <strong>${slotName}</strong><br>Списание за покупку: <span style="color:var(--neon-red)">-${cost.toLocaleString()} ₽</span>.<br><br>Введите итоговый выигрыш с баланса казино:`;
+            saveGameState();
+        }
+
+        // ЗАВЕРШЕНИЕ СЛОТА
+        function submitPayout() {
+            const payout = parseFloat(document.getElementById('payoutInput').value) || 0;
+            state.balance += payout;
+            updateBalanceDisplay();
+
+            const profit = payout - state.currentActiveCost;
+            const mult = state.currentActiveCost > 0 ? (payout / state.currentActiveCost) : 0;
+            let logStyle = profit >= 0 ? 'success' : 'fail';
+
+            addLog(`Слот [${state.currentActiveSlot}]: Итог бонуски ${payout.toLocaleString()} ₽ | Выхлоп: ${profit > 0 ? '+' : ''}${profit.toLocaleString()} ₽ (x${mult.toFixed(1)})`, logStyle);
+
+            // Бонусы для зрителя
+            if (QUEST_DATABASE[state.currentStepIndex]?.eventType === 'viewer') {
+                if (mult >= 500) {
+                    addLog(`🎉 ШОК! Народный инвестор оформляет x${mult.toFixed(0)}! Лёха выплачивает зрителю бонус 10 000 ₽!`, 'success');
+                    state.balance -= 10000;
+                    updateBalanceDisplay();
+                } else if (mult >= 200) {
+                    addLog(`🎉 Красиво! Народный инвестор делает x${mult.toFixed(0)}! Лёха переводит зрителю 5 000 ₽!`, 'success');
+                    state.balance -= 5000;
+                    updateBalanceDisplay();
+                }
+            }
+
+            document.getElementById('payoutInput').value = "";
+            state.currentStepIndex++;
+            saveGameState();
+
+            setTimeout(() => {
+                loadStep(state.currentStepIndex);
+            }, 1000);
+        }
+
+        function updateBalanceDisplay() {
+            document.getElementById('displayBalance').innerText = state.balance.toLocaleString() + " ₽";
+        }
+
+        function addLog(text, type = '') {
+            const container = document.getElementById('logsContent');
+            const entry = document.createElement('div');
+            entry.className = `log-line ${type}`;
+            const timeStr = new Date().toLocaleTimeString();
+            entry.innerHTML = `<strong>[${timeStr}]</strong> ${text}`;
+            container.insertBefore(entry, container.firstChild);
+
+            state.history.push({ text: `<strong>[${timeStr}]</strong> ${text}`, type: type });
+            if(state.history.length > 100) state.history.shift();
+        }
+
+        // ЭКСПОРТ ЛОГОВ В ТЕКСТОВЫЙ ФАЙЛ
+        function exportLogs() {
+            AudioEngine.click();
+            let textData = "=== БОРТОВОЙ ЖУРНАЛ КВЕСТА МЮНХЕН-БЕРЛИН ===\n\n";
+            const lines = document.querySelectorAll('.log-line');
+            lines.forEach(l => {
+                textData += l.innerText + "\n";
+            });
+            
+            const blob = new Blob([textData], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `munich_quest_logs_${new Date().toISOString().slice(0,10)}.txt`;
+            link.click();
+        }
+
+        // ФИНАЛ КВЕСТА
+        function finishQuest() {
+            document.getElementById('gameDesk').style.display = 'none';
+            document.getElementById('payoutPanel').style.display = 'none';
+            const overlay = document.getElementById('eventOverlay');
+            overlay.style.display = 'block';
+
+            if (state.balance >= 650000) {
+                AudioEngine.win();
+                document.getElementById('eventTitle').innerText = "👑 ПОБЕДА! ВЫ ПОКОРИЛИ БЕРЛИН! 👑";
+                document.getElementById('eventDesc').innerHTML = `Поезд успешно доехал до конечной станции!\nФинальный капитал: <strong>${state.balance.toLocaleString()} ₽</strong>.\n\nКазино повержено, психологический покер сработал идеально. Лёха выполняет любой каприз Бати или оплачивает крутейший ужин/подарок за свой счёт!`;
+                overlay.style.background = "linear-gradient(135deg, #064e3b, #022c22)";
+                overlay.style.borderColor = "var(--neon-green)";
+            } else {
+                AudioEngine.fail();
+                document.getElementById('eventTitle').innerText = "💀 КРАХ НА ПОДЪЕЗДЕ К БЕРЛИНУ 💀";
+                document.getElementById('eventDesc').innerHTML = `Вы проиграли слишком много денег на ловушках и капканах.\nИтоговый остаток: <strong>${state.balance.toLocaleString()} ₽</strong> (нужно было >650 000 ₽).\n\nКвест провален. Лёха получает жесткое и смешное наказание от Бати и чата на следующем стриме!`;
+                overlay.style.background = "linear-gradient(135deg, #450a0a, #0f0505)";
+                overlay.style.borderColor = "var(--neon-red)";
+            }
+            localStorage.removeItem('munich_quest_save_v2'); // Чистим сейв после финала
+        }
+
+        // ХОТКЕЙ ДЛЯ БАТИ (Ctrl + B)
+        window.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === 'b' || e.key === 'И' || e.key === 'B' || e.key === 'и')) {
+                e.preventDefault();
+                toggleCheatMode();
+            }
+        });
+
+        window.onload = initGame;
+    </script>
+</body>
+</html>
