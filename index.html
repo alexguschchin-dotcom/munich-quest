@@ -36,10 +36,13 @@
             background-size: 100% 100%, 35px 35px, 35px 35px;
         }
 
-        /* КЛАСС ДЛЯ ЭФФЕКТА ПОДГЛЯДЫВАНИЯ БАТИ через ОБС */
+        /* Режим подглядывания Бати */
         body.cheat-visible .card-back {
-            opacity: 0.12 !important;
-            filter: blur(2px);
+            opacity: 0 !important;
+            filter: none;
+        }
+        body.cheat-visible .cheat-hint {
+            display: flex !important;
         }
 
         .quest-container {
@@ -95,7 +98,6 @@
         .balance-box span { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; display: block;}
         .balance-box strong { display: block; font-size: 2.4rem; font-family: 'Orbitron', sans-serif; color: var(--neon-blue); text-shadow: 0 0 10px rgba(0, 242, 255, 0.5); }
 
-        /* КНОПКИ СТИЛЯ КИБЕРПАНК */
         .btn-cyber {
             background: #111827;
             border: 1px solid #374151;
@@ -190,13 +192,13 @@
         .node-label { font-size: 0.7rem; color: #475569; font-family: 'Orbitron', sans-serif; font-weight: bold; }
         .step-node.active .node-label { color: var(--neon-blue); text-shadow: 0 0 5px rgba(0, 242, 255, 0.5); }
 
-        /* ИГРОВАЯ ЗОНА: 3D КАРТЫ С КРАСИВЫМ ФЛИПОМ */
+        /* ИГРОВАЯ ЗОНА: 3D КАРТЫ */
         .game-desk {
             display: flex;
             gap: 50px;
             justify-content: center;
             margin-bottom: 45px;
-            perspective: 1000px; /* Важно для 3D вращения */
+            perspective: 1000px;
             min-height: 360px;
         }
         .poker-card-wrapper {
@@ -212,7 +214,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             border-radius: 20px;
         }
-        /* Состояние перевернутой карты */
         .poker-card-wrapper.flipped .poker-card {
             transform: rotateY(180deg);
         }
@@ -221,7 +222,6 @@
             transition: transform 0.2s ease;
         }
 
-        /* Стороны карты */
         .card-face-side {
             position: absolute; width: 100%; height: 100%;
             backface-visibility: hidden; border-radius: 20px;
@@ -247,7 +247,7 @@
             box-shadow: 0 0 25px rgba(0, 242, 255, 0.2);
         }
 
-        /* ЛИЦО КАРТЫ (РАСКРЫТОЕ) */
+        /* ЛИЦО КАРТЫ (СКРЫТО) */
         .card-front {
             background: linear-gradient(135deg, #0b1329, #050814);
             transform: rotateY(180deg);
@@ -264,6 +264,34 @@
         .card-slot { font-size: 1.4rem; font-weight: bold; color: #fff; text-align: center; margin: 20px 0; display: flex; align-items: center; justify-content: center; flex-grow: 1;}
         .card-cost { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--neon-gold); background: rgba(0,0,0,0.4); padding: 10px 20px; border-radius: 12px; border: 1px solid #1e293b; width: 100%; text-align: center; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
 
+        /* 🆕 ПОДСКАЗКА ДЛЯ БАТИ (появляется при Ctrl+B) */
+        .cheat-hint {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.92);
+            color: #fff;
+            padding: 18px 22px;
+            border-radius: 16px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.6);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            text-align: center;
+            z-index: 30;
+            pointer-events: none;
+            flex-direction: column;
+            gap: 8px;
+            line-height: 1.4;
+            min-width: 160px;
+        }
+        .cheat-hint .hint-type { font-weight: 900; font-size: 1.4rem; }
+        .cheat-hint .hint-type.truth { color: var(--neon-green); }
+        .cheat-hint .hint-type.trap { color: var(--neon-red); }
+        .cheat-hint .hint-slot { font-size: 1rem; color: #cbd5e1; }
+        .cheat-hint .hint-cost { color: var(--neon-gold); font-size: 1.3rem; }
+
         /* ИВЕНТ ОВЕРЛЕЙ */
         .event-overlay {
             background: linear-gradient(135deg, #1e1b4b, #090514);
@@ -274,7 +302,6 @@
         .event-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--neon-gold); font-weight: 900; margin-bottom: 15px; letter-spacing: 2px; }
         .event-desc { font-size: 1.15rem; margin-bottom: 25px; color: #cbd5e1; white-space: pre-line; line-height: 1.6; }
 
-        /* ИНТЕРФЕЙС РЕЗУЛЬТАТОВ */
         .payout-panel {
             background: #090d1a; border: 2px solid #1e293b; border-radius: 16px;
             padding: 25px; display: none; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;
@@ -286,8 +313,7 @@
             width: 280px; outline: none; text-align: center; transition: all 0.2s;
         }
         .payout-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
-        
-        /* ЖУРНАЛ С КРАСИВЫМИ ТЕГАМИ */
+
         .logs-box {
             margin-top: 35px; background: #04060f; border: 1px solid #151f32;
             border-radius: 16px; padding: 20px;
@@ -311,7 +337,6 @@
 <body>
 
     <div class="quest-container">
-        <!-- ХЕДЕР -->
         <div class="header">
             <div>
                 <h1>МЮНХЕНСКИЙ ЭКСПРЕСС</h1>
@@ -320,7 +345,6 @@
             <div class="header-buttons">
                 <button class="btn-cyber" onclick="toggleRules()"><i class="fas fa-book-open"></i> Правила</button>
                 <button class="btn-cyber" onclick="resetQuest()" style="border-color: rgba(239,68,68,0.3);"><i class="fas fa-undo"></i> Сброс</button>
-                
                 <div class="balance-container">
                     <div class="balance-box">
                         <span>Капитал Марафона</span>
@@ -331,53 +355,54 @@
             </div>
         </div>
 
-        <!-- КНИГА ПРАВИЛ -->
+        <!-- ПРАВИЛА -->
         <div class="rules-block" id="rulesBlock">
             <h2>📜 ПОЛНЫЙ СВОД ПРАВИЛ И ИНСТРУКЦИЯ КВЕСТА</h2>
             <h3>1. Основная задача:</h3>
-            <p>Пройти цепочку из <span class="rules-accent">15 Ступеней</span>. Начальный капитал — <span class="rules-accent">1 000 000 рублей</span>. Минимальный лимит выживания на финише в Берлине — <span class="rules-accent">650 000 ₽</span>. Всё, что сохранено сверху — чистый триумф команды!</p>
-            
+            <p>Пройти цепочку из <span class="rules-accent">15 Ступеней</span>. Начальный капитал — <span class="rules-accent">1 000 000 рублей</span>. Минимальный лимит выживания на финише в Берлине — <span class="rules-accent">650 000 ₽</span>.</p>
             <h3>2. Как проходит обычный раунд:</h3>
             <ul>
-                <li>Лёха полностью закрывает глаза. Батя прожимает хоткей <span class="rules-accent">Ctrl + B</span> (или кликает скрытую ссылку в самом низу под журналом).</li>
-                <li>Рубашки карт на стриме станут прозрачными. Батя видит, под какой картой скрыта <strong>😇 ПРАВДА (Дешевый слот)</strong>, а под какой <strong>💀 БЛЕФ (Капкан)</strong>.</li>
-                <li>Батя отжимает <span class="rules-accent">Ctrl + B</span>, Лёха открывает глаза. Начинается 1-2 минуты психологической дуэли. Батя убеждает или путает Лёху. Лёха выбирает карту на экране мышкой.</li>
-                <li>Запускается 3D-анимация. Сумма списывается, стримеры крутят бонуску. Выигрыш вносится в систему.</li>
+                <li>Лёха закрывает глаза. Батя нажимает <span class="rules-accent">Ctrl + B</span> — на картах появляются подсказки.</li>
+                <li>Батя видит, где <strong>😇 ПРАВДА (дешёвый слот)</strong>, а где <strong>💀 КАПКАН (дорогой)</strong>.</li>
+                <li>Батя отжимает Ctrl+B, Лёха открывает глаза и выбирает карту.</li>
             </ul>
-
-            <h3>3. Уникальные Ивенты на пути:</h3>
+            <h3>3. Уникальные Ивенты:</h3>
             <ul>
-                <li><strong>Ступень 4 (Немецкий патруль):</strong> Батя молчит. Лёха решает сам: дать взятку 50 000 ₽ (и автоматически поехать по сверхдешевому слоту) или угадывать карту вслепую без Бати.</li>
-                <li><strong>Ступень 8 (Бунт сына):</strong> Переворот ролей. Лёха подглядывает через Ctrl+B, Батя закрывает глаза и пытается угадать карту. Лёха вешает лапшу на уши Бате.</li>
-                <li><strong>Ступень 12 (Народный инвестор):</strong> Лёха крутит чат и выбирает случайного зрителя. Чаттер называет любой слот и покупку (от 20к до 150к). Если слот зрителя сыграет в плюс и выдаст от <strong>x200</strong> — Лёха скидывает зрителю 5 000 ₽, а если от <strong>x500</strong> — 10 000 ₽ с реального кошелька!</li>
+                <li><strong>Ступень 4 (Патруль):</strong> взятка 50 000 ₽ или угадывание вслепую.</li>
+                <li><strong>Ступень 8 (Бунт):</strong> Лёха и Батя меняются ролями.</li>
+                <li><strong>Ступень 12 (Народный инвестор):</strong> зритель выбирает слот. За x200 — 5 000 ₽ зрителю, за x500 — 10 000 ₽.</li>
             </ul>
             <button class="btn-action" style="margin-top: 15px; padding: 10px 25px; font-size: 0.8rem;" onclick="toggleRules()">Закрыть инструкцию</button>
         </div>
 
-        <!-- ПРОГРЕСС ЛИНЕЙКА -->
+        <!-- ПРОГРЕСС -->
         <div class="progress-timeline" id="timeline"></div>
 
-        <!-- КАРТОЧКА СПЕЦ-ИВЕНТА -->
+        <!-- ИВЕНТ -->
         <div class="event-overlay" id="eventOverlay">
             <div class="event-title" id="eventTitle">ИВЕНТ</div>
             <div class="event-desc" id="eventDesc">Описание</div>
             <div id="eventActions"></div>
         </div>
 
-        <!-- ИГРОВОЙ СТОЛ (3D КАРТЫ) -->
+        <!-- ИГРОВОЙ СТОЛ С КАРТАМИ -->
         <div class="game-desk" id="gameDesk">
             <!-- Карта А -->
             <div class="poker-card-wrapper" id="cardWrapperA" onclick="chooseCard('A')">
                 <div class="poker-card">
-                    <!-- Рубашка -->
                     <div class="card-face-side card-back">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <!-- Лицо -->
                     <div class="card-face-side card-front" id="cardFrontA">
                         <div class="card-type" id="cardAType">ТИП</div>
                         <div class="card-slot" id="cardASlot">СЛОТ</div>
                         <div class="card-cost" id="cardACost">0 ₽</div>
+                    </div>
+                    <!-- 🆕 ПОДСКАЗКА ДЛЯ БАТИ -->
+                    <div class="cheat-hint" id="cheatHintA">
+                        <div class="hint-type" id="hintTypeA">😇 ПРАВДА</div>
+                        <div class="hint-slot" id="hintSlotA">Слот</div>
+                        <div class="hint-cost" id="hintCostA">0 ₽</div>
                     </div>
                 </div>
             </div>
@@ -385,15 +410,19 @@
             <!-- Карта Б -->
             <div class="poker-card-wrapper" id="cardWrapperB" onclick="chooseCard('B')">
                 <div class="poker-card">
-                    <!-- Рубашка -->
                     <div class="card-face-side card-back">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <!-- Лицо -->
                     <div class="card-face-side card-front" id="cardFrontB">
                         <div class="card-type" id="cardBType">ТИП</div>
                         <div class="card-slot" id="cardBSlot">СЛОТ</div>
                         <div class="card-cost" id="cardBCost">0 ₽</div>
+                    </div>
+                    <!-- 🆕 ПОДСКАЗКА ДЛЯ БАТИ -->
+                    <div class="cheat-hint" id="cheatHintB">
+                        <div class="hint-type" id="hintTypeB">💀 КАПКАН</div>
+                        <div class="hint-slot" id="hintSlotB">Слот</div>
+                        <div class="hint-cost" id="hintCostB">0 ₽</div>
                     </div>
                 </div>
             </div>
@@ -406,21 +435,20 @@
             <button class="btn-action" onclick="submitPayout()">Зафиксировать</button>
         </div>
 
-        <!-- БОРТОВОЙ ЖУРНАЛ -->
+        <!-- ЖУРНАЛ -->
         <div class="logs-box">
             <div class="logs-header">
-                <div class="logs-title"><i class="fas fa-terminal"></i> Бортовой журнал поезда Мюнхен-Берлин:</div>
+                <div class="logs-title"><i class="fas fa-terminal"></i> Бортовой журнал:</div>
                 <button class="btn-cyber" style="padding: 5px 12px; font-size: 0.75rem;" onclick="exportLogs()"><i class="fas fa-download"></i> Экспорт .TXT</button>
             </div>
             <div class="logs-content" id="logsContent"></div>
         </div>
 
-        <!-- СЕКРЕТНЫЙ СЛОЙ УПРАВЛЕНИЯ -->
-        <div class="cheat-indicator" onclick="toggleCheatMode()">[Слой управления ОБС / Переключатель видимости (Ctrl + B)]</div>
+        <div class="cheat-indicator" onclick="toggleCheatMode()">[Слой управления ОБС / Ctrl+B]</div>
     </div>
 
     <script>
-        // СТРУКТУРА КВЕСТА
+        // БАЗА ДАННЫХ 15 СТУПЕНЕЙ
         const QUEST_DATABASE = [
             { id: 1, type: "normal", truth: { slot: "Sugar Rush", cost: 20000 }, trap: { slot: "Sugar Rush 1000", cost: 100000 } },
             { id: 2, type: "normal", truth: { slot: "The Dog House (30 Спинов)", cost: 15000 }, trap: { slot: "Dog House Megaways", cost: 70000 } },
@@ -448,10 +476,10 @@
             currentActiveSlot: "",
             isCardPicked: false,
             history: [],
-            stepResults: {} // сохранение цветов для пройденных нод {0: 'truth', 1: 'trap'}
+            stepResults: {}
         };
 
-        // AUDIO ENGINE (Web Audio API без внешних файлов)
+        // AUDIO ENGINE
         const AudioEngine = {
             ctx: null,
             init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
@@ -483,7 +511,7 @@
             }
         };
 
-        // ЗАГРУЗКА ИЗ LOCALSTORAGE
+        // СОХРАНЕНИЕ
         function loadGameState() {
             const saved = localStorage.getItem('munich_quest_save_v2');
             if (saved) {
@@ -509,14 +537,14 @@
         }
 
         function resetQuest() {
-            if(confirm("Вы уверены, что хотите полностью обнулить квест и начать заново с 1 000 000 ₽?")) {
+            if(confirm("Вы уверены, что хотите полностью обнулить квест?")) {
                 localStorage.removeItem('munich_quest_save_v2');
                 state.balance = 1000000;
                 state.currentStepIndex = 0;
                 state.stepResults = {};
                 state.history = [];
                 document.getElementById('logsContent').innerHTML = "";
-                addLog("Игра полностью сброшена. Капитал обновлен до 1 000 000 ₽.", "info");
+                addLog("Игра сброшена. Капитал 1 000 000 ₽.", "info");
                 initGame();
             }
         }
@@ -526,12 +554,9 @@
             const hasSave = loadGameState();
             renderTimeline();
             updateBalanceDisplay();
-            
-            // Если логов нет в сейве, кидаем стартовый
             if (state.history.length === 0) {
-                addLog("Поезд Мюнхен-Берлин готов к отправке! Батя, зажми Ctrl+B для просмотра карт.", "info");
+                addLog("Поезд готов. Батя, зажми Ctrl+B для просмотра карт.", "info");
             } else {
-                // Перерисовываем логи из памяти
                 const container = document.getElementById('logsContent');
                 container.innerHTML = "";
                 state.history.forEach(h => {
@@ -540,7 +565,6 @@
                     el.innerHTML = h.text;
                     container.appendChild(el);
                 });
-                // Закрашиваем пройденные ступени на таймлайне
                 for (let idx in state.stepResults) {
                     const node = document.getElementById(`node_${idx}`);
                     if (node) {
@@ -548,29 +572,26 @@
                     }
                 }
             }
-
             loadStep(state.currentStepIndex);
         }
 
         function toggleRules() { AudioEngine.click(); const b = document.getElementById('rulesBlock'); b.style.display = (b.style.display === 'block') ? 'none' : 'block'; }
         function toggleCheatMode() { document.body.classList.toggle('cheat-visible'); }
 
-        // ИЗМЕНЕНИЕ БАЛАНСА ВРУЧНУЮ
         function promptManualBalance() {
             AudioEngine.click();
-            let val = prompt("Введите новую сумму общего капитала марафона (₽):", state.balance);
+            let val = prompt("Введите новую сумму:", state.balance);
             if (val !== null) {
                 let num = parseFloat(val.replace(/\s/g, ''));
                 if (!isNaN(num)) {
                     state.balance = num;
                     updateBalanceDisplay();
-                    addLog(`Внимание! Баланс изменен вручную через панель управления на ${num.toLocaleString()} ₽.`, "info");
+                    addLog(`Баланс изменён на ${num.toLocaleString()} ₽`, "info");
                     saveGameState();
                 }
             }
         }
 
-        // РЕНДЕР СТУПЕНЕЙ
         function renderTimeline() {
             const container = document.getElementById('timeline');
             container.innerHTML = '';
@@ -586,26 +607,19 @@
             });
         }
 
-        // ЗАГРУЗКА ШАГА
         function loadStep(index) {
-            if (index >= QUEST_DATABASE.length) {
-                finishQuest();
-                return;
-            }
+            if (index >= QUEST_DATABASE.length) { finishQuest(); return; }
 
             state.currentStepIndex = index;
             state.isCardPicked = false;
             state.selectedCardLetter = null;
-            
-            // Сброс 3D анимаций переворота
+
             document.getElementById('cardWrapperA').classList.remove('flipped');
             document.getElementById('cardWrapperB').classList.remove('flipped');
-            
             document.getElementById('gameDesk').style.display = 'flex';
             document.getElementById('payoutPanel').style.display = 'none';
             document.getElementById('eventOverlay').style.display = 'none';
 
-            // Обновляем маркер текущего шага
             QUEST_DATABASE.forEach((_, i) => {
                 const node = document.getElementById(`node_${i}`);
                 if(node) {
@@ -615,27 +629,13 @@
             });
 
             const step = QUEST_DATABASE[index];
-            if (step.type === 'normal') {
-                setupNormalCards(step);
-            } else if (step.type === 'event') {
-                setupEventStage(step.eventType);
-            } else if (step.type === 'final') {
-                setupFinalStage();
-            }
+            if (step.type === 'normal') setupNormalCards(step);
+            else if (step.type === 'event') setupEventStage(step.eventType);
+            else if (step.type === 'final') setupFinalStage();
             saveGameState();
         }
 
-        function setupNormalCards(step) {
-            state.truthCardLetter = Math.random() < 0.5 ? 'A' : 'B';
-            const trapLetter = state.truthCardLetter === 'A' ? 'B' : 'A';
-
-            // Настройка карт
-            configureCardFront(state.truthCardLetter, "😇 ПРАВДА (Безопасная)", "truth", step.truth.slot, step.truth.cost);
-            configureCardFront(trapLetter, "💀 БЛЕФ (Капкан)", "trap", step.trap.slot, step.trap.cost);
-            
-            addLog(`Ступень ${step.id}. Карты сгенерированы. Лёха отворачивается, Батя зажимает Ctrl+B.`);
-        }
-
+        // ОБНОВЛЁННАЯ ФУНКЦИЯ НАСТРОЙКИ КАРТ (теперь обновляет и cheat-hint)
         function configureCardFront(letter, typeText, typeClass, slotName, cost) {
             const front = document.getElementById(`cardFront${letter}`);
             front.className = `card-face-side card-front is-${typeClass}`;
@@ -643,9 +643,30 @@
             document.getElementById(`card${letter}Type`).className = `card-type ${typeClass}`;
             document.getElementById(`card${letter}Slot`).innerText = slotName;
             document.getElementById(`card${letter}Cost`).innerText = cost.toLocaleString() + " ₽";
+
+            // Обновляем подсказку для Бати
+            const hint = document.getElementById(`cheatHint${letter}`);
+            const hintType = document.getElementById(`hintType${letter}`);
+            const hintSlot = document.getElementById(`hintSlot${letter}`);
+            const hintCost = document.getElementById(`hintCost${letter}`);
+            
+            // Определяем эмодзи и класс для типа
+            let emoji = typeClass === 'truth' ? '😇' : '💀';
+            let displayType = typeClass === 'truth' ? 'ПРАВДА' : 'КАПКАН';
+            hintType.innerText = `${emoji} ${displayType}`;
+            hintType.className = `hint-type ${typeClass}`;
+            hintSlot.innerText = slotName;
+            hintCost.innerText = cost.toLocaleString() + " ₽";
         }
 
-        // ОБРАБОТКА ИВЕНТОВ
+        function setupNormalCards(step) {
+            state.truthCardLetter = Math.random() < 0.5 ? 'A' : 'B';
+            const trapLetter = state.truthCardLetter === 'A' ? 'B' : 'A';
+            configureCardFront(state.truthCardLetter, "😇 ПРАВДА (Безопасная)", "truth", step.truth.slot, step.truth.cost);
+            configureCardFront(trapLetter, "💀 БЛЕФ (Капкан)", "trap", step.trap.slot, step.trap.cost);
+            addLog(`Ступень ${step.id}. Карты готовы. Лёха закрывает глаза, Батя жмёт Ctrl+B.`);
+        }
+
         function setupEventStage(type) {
             document.getElementById('gameDesk').style.display = 'none';
             const overlay = document.getElementById('eventOverlay');
@@ -655,18 +676,18 @@
 
             if (type === 'patrol') {
                 document.getElementById('eventTitle').innerText = "🚨 НЕМЕЦКИЙ ДОРОЖНЫЙ ПАТРУЛЬ";
-                document.getElementById('eventDesc').innerText = "В купе ворвалась полиция! Подсказки Бати заблокированы.\nВы можете дать официальную взятку 50 000 ₽ копам и автоматически гарантировать себе дешевый безопасный слот, либо отказаться и выбрать карту абсолютно вслепую без Бати.";
+                document.getElementById('eventDesc').innerText = "В купе ворвалась полиция! Подсказки Бати заблокированы.\nВы можете дать взятку 50 000 ₽ и гарантированно пройти по дешёвому слоту, либо рискнуть вслепую.";
                 actions.innerHTML = `
                     <button class="btn-action" style="background:var(--neon-green); margin-right:15px;" onclick="handlePatrolDecision(true)">Заплатить 50,000 ₽</button>
                     <button class="btn-action" style="background:var(--neon-red);" onclick="handlePatrolDecision(false)">Рискнуть без подсказок</button>
                 `;
             } else if (type === 'rebel') {
                 document.getElementById('eventTitle').innerText = "🔄 БУНТ НА КОРАБЛЕ (СМЕНА РОЛЕЙ)";
-                document.getElementById('eventDesc').innerText = "Лёха перехватывает инициативу! Батя плотно закрывает глаза руками.\nЛёха зажимает Ctrl+B, смотрит карты и пытается загнать Батю в дорогой капкан красноречием!";
-                actions.innerHTML = `<button class="btn-action" onclick="startRebelRound()">Лёха посмотрел карты, погнали блефовать!</button>`;
+                document.getElementById('eventDesc').innerText = "Лёха перехватывает инициативу! Батя закрывает глаза.\nЛёха жмёт Ctrl+B, смотрит карты и пытается обмануть Батю.";
+                actions.innerHTML = `<button class="btn-action" onclick="startRebelRound()">Лёха посмотрел, погнали блефовать!</button>`;
             } else if (type === 'viewer') {
                 document.getElementById('eventTitle').innerText = "🎰 НАРОДНЫЙ ИНВЕСТОР (ВЫБОР ЧАТА)";
-                document.getElementById('eventDesc').innerText = "Лёха крутит чат стрима колесиком мышки и тыкает в случайного зрителя!\nСчастливчик пишет в чат название СЛОТА и СУММУ бонуски (от 20 000 до 150 000 ₽).\n\n🎁 БОНУС ДЛЯ СТРИМА:\nЕсли бонуска зрителя дает занос от x200 — Лёха дарит ему 5 000 ₽.\nЕсли занос от x500 — Лёха переводит ему 10 000 ₽!";
+                document.getElementById('eventDesc').innerText = "Лёха крутит чат и выбирает случайного зрителя.\nОн пишет СЛОТ и СУММУ (20 000 – 150 000 ₽).\n\n🎁 БОНУСЫ: x200 → +5 000 ₽ зрителю, x500 → +10 000 ₽!";
                 actions.innerHTML = `
                     <div style="margin-bottom:20px; display:flex; gap:15px; justify-content:center;">
                         <input type="text" id="vSlot" class="payout-input" placeholder="Название слота" style="width:220px;">
@@ -683,10 +704,10 @@
                 state.balance -= 50000;
                 updateBalanceDisplay();
                 state.stepResults[state.currentStepIndex] = 'truth';
-                addLog("Лёха дал взятку патрулю! -50 000 ₽. Поезд едет дальше по дешевому тарифу.", "success");
+                addLog("Взятка 50 000 ₽. Поезд едет по дешёвому тарифу.", "success");
                 activateSlotExecution("Big Bass (Патрульный сейв)", 15000);
             } else {
-                addLog("Лёха отказался платить! Карты активированы, Батя дает обет молчания.");
+                addLog("Лёха отказался платить. Карты активированы, Батя молчит.");
                 document.getElementById('eventOverlay').style.display = 'none';
                 document.getElementById('gameDesk').style.display = 'flex';
                 setupNormalCards({ id: 4, truth: { slot: "Octobeer Fortunes", cost: 20000 }, trap: { slot: "Bier Haus Mega", cost: 130000 } });
@@ -697,8 +718,8 @@
             AudioEngine.click();
             document.getElementById('eventOverlay').style.display = 'none';
             document.getElementById('gameDesk').style.display = 'flex';
-            setupNormalCards({ id: 8, truth: { slot: "Tombstone (Дешевая)", cost: 20000 }, trap: { slot: "Mental (Бунтарский ад)", cost: 200000 } });
-            addLog("Раунд запущен! Батя отгадывает, Лёха мастерски врет.");
+            setupNormalCards({ id: 8, truth: { slot: "Tombstone (Дешёвая)", cost: 20000 }, trap: { slot: "Mental (Бунтарский ад)", cost: 200000 } });
+            addLog("Раунд запущен! Батя отгадывает, Лёха блефует.");
         }
 
         function submitViewerEvent() {
@@ -706,60 +727,52 @@
             const cost = parseFloat(document.getElementById('vCost').value) || 0;
             if (!slot || cost < 20000 || cost > 150000) {
                 AudioEngine.fail();
-                alert("Ошибка! Укажите корректный слот и покупку строго от 20 000 до 150 000 ₽!");
+                alert("Укажите слот и сумму от 20 000 до 150 000 ₽!");
                 return;
             }
             AudioEngine.win();
             document.getElementById('eventOverlay').style.display = 'none';
             state.stepResults[state.currentStepIndex] = 'truth';
             activateSlotExecution(`Народный Выбор: ${slot}`, cost);
-            document.getElementById('payoutPrompt').innerHTML = `🎰 Бонуска зрителя в эфире! Играем <strong>${slot}</strong> за <strong>${cost.toLocaleString()} ₽</strong>.<br><span style="color:var(--neon-gold)">Множители: x200 = +5k зрителю, x500 = +10k зрителю!</span><br><br>Внесите итоговую сумму с экрана:`;
+            document.getElementById('payoutPrompt').innerHTML = `🎰 Бонуска зрителя: <strong>${slot}</strong> за <strong>${cost.toLocaleString()} ₽</strong>.<br><span style="color:var(--neon-gold)">x200 = +5k, x500 = +10k зрителю!</span><br><br>Введите итог:`;
         }
 
         function setupFinalStage() {
             state.truthCardLetter = Math.random() < 0.5 ? 'A' : 'B';
             const trapLetter = state.truthCardLetter === 'A' ? 'B' : 'A';
             const pot = state.balance;
-
-            configureCardFront(state.truthCardLetter, "👑 ФИНАЛ: ВА-БАНК В ОДНУ СЕССИЮ", "truth", "Единая мега-бонуска на ВСЕ ОСТАВШИЕСЯ ДЕНЬГИ в Sweet Bonanza 1000! Нажимают кнопку одновременно.", pot);
-            configureCardFront(trapLetter, "👑 ФИНАЛ: РАЗДЕЛЕНИЕ СИЛ", "trap", "Сумма режется 50/50. Половину крутит Батя в своем любимом слоте, половину Лёха в своем.", pot);
-            
-            addLog(`🚀 ФИНАЛЬНАЯ СТАНЦИЯ — БЕРЛИН! На кону абсолютно всё: ${pot.toLocaleString()} ₽!`);
+            configureCardFront(state.truthCardLetter, "👑 ФИНАЛ: ВА-БАНК", "truth", "Одна мега-бонуска на ВСЕ ДЕНЬГИ в Sweet Bonanza 1000 (нажимают вместе)", pot);
+            configureCardFront(trapLetter, "👑 ФИНАЛ: РАЗДЕЛЕНИЕ", "trap", "Сумма 50/50: половину крутит Батя, половину Лёха", pot);
+            addLog(`🚀 ФИНАЛ — БЕРЛИН! На кону всё: ${pot.toLocaleString()} ₽!`);
         }
 
-        // ВЫБОР КАРТЫ С КРАСИВЫМ ФЛИПОМ
+        // ВЫБОР КАРТЫ
         function chooseCard(letter) {
             if (state.isCardPicked) return;
             state.isCardPicked = true;
             state.selectedCardLetter = letter;
 
             AudioEngine.flip();
-
-            // Анимация переворота обеих карт
             document.getElementById('cardWrapperA').classList.add('flipped');
             document.getElementById('cardWrapperB').classList.add('flipped');
 
             const isTruth = (letter === state.truthCardLetter);
             state.stepResults[state.currentStepIndex] = isTruth ? 'truth' : 'trap';
-            
             const node = document.getElementById(`node_${state.currentStepIndex}`);
             if (isTruth) {
                 if(node) node.classList.add('passed_truth');
                 setTimeout(()=>AudioEngine.win(), 400);
-                addLog(`Лёха прочитал Батю и нашел карту ПРАВДЫ!`, 'success');
+                addLog(`Лёха выбрал ПРАВДУ!`, 'success');
             } else {
                 if(node) node.classList.add('passed_trap');
                 setTimeout(()=>AudioEngine.fail(), 400);
-                addLog(`💀 Капкан захлопнулся! Лёха повелся на блеф Бати.`, 'fail');
+                addLog(`💀 Капкан! Лёха попался на блеф Бати.`, 'fail');
             }
 
             const slotName = document.getElementById(`card${letter}Slot`).innerText;
             const costText = document.getElementById(`card${letter}Cost`).innerText;
             const cost = parseInt(costText.replace(/\s/g, ''));
-
-            setTimeout(() => {
-                activateSlotExecution(slotName, cost);
-            }, 1200);
+            setTimeout(() => activateSlotExecution(slotName, cost), 1200);
         }
 
         function activateSlotExecution(slotName, cost) {
@@ -769,11 +782,10 @@
             updateBalanceDisplay();
 
             document.getElementById('payoutPanel').style.display = 'flex';
-            document.getElementById('payoutPrompt').innerHTML = `Крутим слот: <strong>${slotName}</strong><br>Списание за покупку: <span style="color:var(--neon-red)">-${cost.toLocaleString()} ₽</span>.<br><br>Введите итоговый выигрыш с баланса казино:`;
+            document.getElementById('payoutPrompt').innerHTML = `Крутим <strong>${slotName}</strong><br>Списание: <span style="color:var(--neon-red)">-${cost.toLocaleString()} ₽</span><br><br>Введите итоговый выигрыш:`;
             saveGameState();
         }
 
-        // ЗАВЕРШЕНИЕ СЛОТА
         function submitPayout() {
             const payout = parseFloat(document.getElementById('payoutInput').value) || 0;
             state.balance += payout;
@@ -782,17 +794,16 @@
             const profit = payout - state.currentActiveCost;
             const mult = state.currentActiveCost > 0 ? (payout / state.currentActiveCost) : 0;
             let logStyle = profit >= 0 ? 'success' : 'fail';
+            addLog(`Слот [${state.currentActiveSlot}]: выплата ${payout.toLocaleString()} ₽ | ${profit > 0 ? '+' : ''}${profit.toLocaleString()} ₽ (x${mult.toFixed(1)})`, logStyle);
 
-            addLog(`Слот [${state.currentActiveSlot}]: Итог бонуски ${payout.toLocaleString()} ₽ | Выхлоп: ${profit > 0 ? '+' : ''}${profit.toLocaleString()} ₽ (x${mult.toFixed(1)})`, logStyle);
-
-            // Бонусы для зрителя
+            // Бонус зрителю (если ивент)
             if (QUEST_DATABASE[state.currentStepIndex]?.eventType === 'viewer') {
                 if (mult >= 500) {
-                    addLog(`🎉 ШОК! Народный инвестор оформляет x${mult.toFixed(0)}! Лёха выплачивает зрителю бонус 10 000 ₽!`, 'success');
+                    addLog(`🎉 x${mult.toFixed(0)}! Зритель получает 10 000 ₽!`, 'success');
                     state.balance -= 10000;
                     updateBalanceDisplay();
                 } else if (mult >= 200) {
-                    addLog(`🎉 Красиво! Народный инвестор делает x${mult.toFixed(0)}! Лёха переводит зрителю 5 000 ₽!`, 'success');
+                    addLog(`🎉 x${mult.toFixed(0)}! Зритель получает 5 000 ₽!`, 'success');
                     state.balance -= 5000;
                     updateBalanceDisplay();
                 }
@@ -801,10 +812,7 @@
             document.getElementById('payoutInput').value = "";
             state.currentStepIndex++;
             saveGameState();
-
-            setTimeout(() => {
-                loadStep(state.currentStepIndex);
-            }, 1000);
+            setTimeout(() => loadStep(state.currentStepIndex), 1000);
         }
 
         function updateBalanceDisplay() {
@@ -818,20 +826,15 @@
             const timeStr = new Date().toLocaleTimeString();
             entry.innerHTML = `<strong>[${timeStr}]</strong> ${text}`;
             container.insertBefore(entry, container.firstChild);
-
             state.history.push({ text: `<strong>[${timeStr}]</strong> ${text}`, type: type });
             if(state.history.length > 100) state.history.shift();
         }
 
-        // ЭКСПОРТ ЛОГОВ В ТЕКСТОВЫЙ ФАЙЛ
         function exportLogs() {
             AudioEngine.click();
-            let textData = "=== БОРТОВОЙ ЖУРНАЛ КВЕСТА МЮНХЕН-БЕРЛИН ===\n\n";
+            let textData = "=== БОРТОВОЙ ЖУРНАЛ МЮНХЕН-БЕРЛИН ===\n\n";
             const lines = document.querySelectorAll('.log-line');
-            lines.forEach(l => {
-                textData += l.innerText + "\n";
-            });
-            
+            lines.forEach(l => textData += l.innerText + "\n");
             const blob = new Blob([textData], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -839,7 +842,6 @@
             link.click();
         }
 
-        // ФИНАЛ КВЕСТА
         function finishQuest() {
             document.getElementById('gameDesk').style.display = 'none';
             document.getElementById('payoutPanel').style.display = 'none';
@@ -848,21 +850,20 @@
 
             if (state.balance >= 650000) {
                 AudioEngine.win();
-                document.getElementById('eventTitle').innerText = "👑 ПОБЕДА! ВЫ ПОКОРИЛИ БЕРЛИН! 👑";
-                document.getElementById('eventDesc').innerHTML = `Поезд успешно доехал до конечной станции!\nФинальный капитал: <strong>${state.balance.toLocaleString()} ₽</strong>.\n\nКазино повержено, психологический покер сработал идеально. Лёха выполняет любой каприз Бати или оплачивает крутейший ужин/подарок за свой счёт!`;
+                document.getElementById('eventTitle').innerText = "👑 ПОБЕДА! БЕРЛИН ВЗЯТ! 👑";
+                document.getElementById('eventDesc').innerHTML = `Финальный капитал: <strong>${state.balance.toLocaleString()} ₽</strong>.<br><br>Лёха оплачивает Бати праздничный ужин/подарок!`;
                 overlay.style.background = "linear-gradient(135deg, #064e3b, #022c22)";
                 overlay.style.borderColor = "var(--neon-green)";
             } else {
                 AudioEngine.fail();
                 document.getElementById('eventTitle').innerText = "💀 КРАХ НА ПОДЪЕЗДЕ К БЕРЛИНУ 💀";
-                document.getElementById('eventDesc').innerHTML = `Вы проиграли слишком много денег на ловушках и капканах.\nИтоговый остаток: <strong>${state.balance.toLocaleString()} ₽</strong> (нужно было >650 000 ₽).\n\nКвест провален. Лёха получает жесткое и смешное наказание от Бати и чата на следующем стриме!`;
+                document.getElementById('eventDesc').innerHTML = `Остаток: <strong>${state.balance.toLocaleString()} ₽</strong> (нужно >650 000 ₽).<br><br>Лёха получает жёсткое наказание от Бати и чата!`;
                 overlay.style.background = "linear-gradient(135deg, #450a0a, #0f0505)";
                 overlay.style.borderColor = "var(--neon-red)";
             }
-            localStorage.removeItem('munich_quest_save_v2'); // Чистим сейв после финала
+            localStorage.removeItem('munich_quest_save_v2');
         }
 
-        // ХОТКЕЙ ДЛЯ БАТИ (Ctrl + B)
         window.addEventListener('keydown', function (e) {
             if (e.ctrlKey && (e.key === 'b' || e.key === 'И' || e.key === 'B' || e.key === 'и')) {
                 e.preventDefault();
