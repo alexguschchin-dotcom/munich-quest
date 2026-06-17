@@ -3,77 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎰 МЮНХЕНСКИЙ ЭКСПРЕСС | СТРИМ-ШОУ</title>
+    <title>🚂 Мюнхенский Экспресс</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Play:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        :root {
-            --neon-blue: #00f2ff;
-            --neon-purple: #7c3aed;
-            --neon-gold: #fbbf24;
-            --neon-green: #34d399;
-            --neon-red: #f87171;
-            --bg-dark: #060814;
-            --card-bg: #0b1329;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
-        
         body {
-            background-color: var(--bg-dark);
+            background: #0b0e1a;
             color: #e2e8f0;
             font-family: 'Play', sans-serif;
             min-height: 100vh;
             padding: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             background-image: 
-                radial-gradient(circle at 50% 10%, #1e1b4b 0%, #060814 70%),
-                repeating-linear-gradient(0deg, rgba(0,242,255,0.02) 0px, rgba(0,242,255,0.02) 1px, transparent 1px, transparent 4px),
-                repeating-linear-gradient(90deg, rgba(0,242,255,0.02) 0px, rgba(0,242,255,0.02) 1px, transparent 1px, transparent 4px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
+                radial-gradient(circle at 30% 40%, #2d1b69 0%, #0b0e1a 70%),
+                repeating-linear-gradient(45deg, rgba(255,215,0,0.03) 0px, rgba(255,215,0,0.03) 2px, transparent 2px, transparent 8px);
+            animation: bgMove 20s linear infinite;
+        }
+        @keyframes bgMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
         }
 
         .quest-container {
             width: 100%;
-            max-width: 1320px;
-            background: rgba(10, 15, 30, 0.85);
-            border: 2px solid #1e293b;
-            border-radius: 28px;
-            padding: 35px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0, 242, 255, 0.05);
+            max-width: 1280px;
+            background: rgba(10, 15, 30, 0.8);
+            border-radius: 32px;
+            padding: 30px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 60px rgba(124, 58, 237, 0.15);
+            border: 1px solid rgba(255,255,255,0.05);
             position: relative;
+            overflow: hidden;
         }
+        .quest-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(124,58,237,0.05), transparent, rgba(0,242,255,0.05), transparent);
+            animation: spin 30s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* ХЕДЕР */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #1e293b;
-            padding-bottom: 25px;
-            margin-bottom: 30px;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             flex-wrap: wrap;
             gap: 15px;
+            position: relative;
+            z-index: 1;
         }
         .header-left h1 {
             font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
             font-weight: 900;
-            font-size: 2.3rem;
-            background: linear-gradient(45deg, #00f2ff, #7c3aed);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
-            letter-spacing: 3px;
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.3);
+            letter-spacing: 2px;
         }
         .header-left .subtitle {
-            color: #64748b;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            margin-top: 2px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
         }
         .header-right {
             display: flex;
@@ -82,118 +87,134 @@
             flex-wrap: wrap;
         }
         .balance-box {
-            background: #090d1a;
-            border: 2px solid var(--neon-blue);
-            padding: 10px 28px;
+            background: rgba(0,0,0,0.5);
+            border: 2px solid #fbbf24;
+            padding: 8px 24px;
             border-radius: 16px;
             text-align: right;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.15);
-            min-width: 200px;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.15);
+            backdrop-filter: blur(4px);
         }
         .balance-box span {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 2px;
-            display: block;
         }
         .balance-box strong {
             display: block;
             font-size: 2rem;
             font-family: 'Orbitron', sans-serif;
-            color: var(--neon-blue);
-            text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+            color: #fbbf24;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+            transition: all 0.3s;
         }
 
         .btn-cyber {
-            background: #111827;
-            border: 1px solid #374151;
-            color: #9ca3af;
-            padding: 12px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;
+            padding: 10px 18px;
             border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+            backdrop-filter: blur(4px);
         }
         .btn-cyber:hover {
-            color: #fff;
-            border-color: var(--neon-blue);
-            background: rgba(0, 242, 255, 0.05);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+            background: rgba(251, 191, 36, 0.1);
+            border-color: #fbbf24;
+            color: #fbbf24;
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.2);
             transform: translateY(-2px);
         }
         .btn-action {
             background: linear-gradient(135deg, #7c3aed, #00f2ff);
             color: #fff;
             border: none;
-            padding: 14px 30px;
-            border-radius: 12px;
+            padding: 14px 28px;
+            border-radius: 14px;
             cursor: pointer;
             font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
             font-weight: 900;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
             transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-action::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
         .btn-action:hover {
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
-            transform: scale(1.03);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.5);
+            transform: scale(1.04);
         }
 
         /* ПРАВИЛА */
         .rules-block {
             display: none;
-            background: #0b0f19;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 30px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
             margin-bottom: 30px;
+            backdrop-filter: blur(8px);
             line-height: 1.7;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 1;
         }
         .rules-block h2 {
             font-family: 'Orbitron', sans-serif;
-            color: var(--neon-gold);
-            margin-bottom: 15px;
-            font-size: 1.6rem;
+            color: #fbbf24;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
         }
-        .rules-block h3 {
-            color: var(--neon-blue);
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-        .rules-block ul { margin-left: 25px; margin-bottom: 15px; }
-        .rules-accent { color: var(--neon-gold); font-weight: bold; }
+        .rules-block h3 { color: #00f2ff; margin-top: 12px; }
+        .rules-block ul { margin-left: 20px; margin-bottom: 10px; }
+        .rules-accent { color: #fbbf24; font-weight: bold; }
 
-        /* ПРОГРЕСС-БАР */
+        /* ПРОГРЕСС-БАР – теперь с иконками вместо букв */
         .progress-timeline {
             display: flex;
             justify-content: space-between;
-            background: #04060f;
-            padding: 20px 15px;
-            border-radius: 16px;
+            background: rgba(0,0,0,0.4);
+            padding: 15px 10px;
+            border-radius: 20px;
             margin-bottom: 35px;
-            border: 1px solid #151f32;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(4px);
             overflow-x: auto;
-            flex-wrap: nowrap;
-            gap: 5px;
+            gap: 4px;
+            position: relative;
+            z-index: 1;
         }
         .step-node {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             flex: 1 0 auto;
             position: relative;
-            min-width: 48px;
+            min-width: 44px;
+            cursor: default;
         }
         .step-node:not(:last-child)::after {
             content: '';
@@ -202,21 +223,13 @@
             left: 50%;
             width: 100%;
             height: 3px;
-            background: #151f32;
-            z-index: 1;
+            background: #1e293b;
+            z-index: 0;
+            transition: all 0.5s;
         }
-        .step-node.passed_truth:not(:last-child)::after {
-            background: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
-        }
-        .step-node.passed_trap:not(:last-child)::after {
-            background: var(--neon-red);
-            box-shadow: 0 0 10px var(--neon-red);
-        }
-        .step-node.passed_mid:not(:last-child)::after {
-            background: var(--neon-gold);
-            box-shadow: 0 0 10px var(--neon-gold);
-        }
+        .step-node.passed_truth:not(:last-child)::after { background: #34d399; box-shadow: 0 0 12px #34d399; }
+        .step-node.passed_trap:not(:last-child)::after { background: #f87171; box-shadow: 0 0 12px #f87171; }
+        .step-node.passed_mid:not(:last-child)::after { background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
 
         .node-circle {
             width: 36px;
@@ -226,83 +239,84 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: bold;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            z-index: 2;
+            font-size: 1rem;
+            z-index: 1;
             border: 2px solid #1e293b;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             color: #475569;
+            box-shadow: 0 0 0 0 transparent;
         }
         .step-node.active .node-circle {
             background: #7c3aed;
             color: #fff;
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 25px var(--neon-blue);
+            border-color: #00f2ff;
+            box-shadow: 0 0 30px #00f2ff, 0 0 60px rgba(0,242,255,0.3);
             transform: scale(1.2);
         }
         .step-node.passed_truth .node-circle {
             background: rgba(16, 185, 129, 0.15);
-            color: var(--neon-green);
-            border-color: var(--neon-green);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            border-color: #34d399;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
         }
         .step-node.passed_trap .node-circle {
             background: rgba(239, 68, 68, 0.15);
-            color: var(--neon-red);
-            border-color: var(--neon-red);
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            border-color: #f87171;
+            box-shadow: 0 0 20px rgba(248, 113, 113, 0.4);
         }
         .step-node.passed_mid .node-circle {
             background: rgba(251, 191, 36, 0.15);
-            color: var(--neon-gold);
-            border-color: var(--neon-gold);
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
+            border-color: #fbbf24;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
         }
         .node-label {
-            font-size: 0.6rem;
-            color: #475569;
+            font-size: 0.5rem;
+            color: #64748b;
             font-family: 'Orbitron', sans-serif;
             font-weight: bold;
             white-space: nowrap;
         }
         .step-node.active .node-label {
-            color: var(--neon-blue);
-            text-shadow: 0 0 8px rgba(0, 242, 255, 0.5);
+            color: #00f2ff;
+            text-shadow: 0 0 8px rgba(0,242,255,0.6);
         }
 
-        /* ИГРОВОЙ СТОЛ */
+        /* ИГРОВЫЕ КАРТЫ – с голографическим эффектом */
         .game-desk {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             perspective: 1200px;
-            min-height: 400px;
+            min-height: 380px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
         .poker-card-wrapper {
-            width: 220px;
-            height: 330px;
+            width: 210px;
+            height: 310px;
             position: relative;
             cursor: pointer;
             flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        .poker-card-wrapper:hover:not(.flipped) {
+            transform: translateY(-12px) scale(1.02);
         }
         .poker-card {
             width: 100%;
             height: 100%;
             position: absolute;
             transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
         }
         .poker-card-wrapper.flipped .poker-card {
             transform: rotateY(180deg);
-        }
-        .poker-card-wrapper:hover:not(.flipped) {
-            transform: translateY(-8px);
-            transition: transform 0.2s;
         }
 
         .card-face-side {
@@ -313,298 +327,287 @@
             border-radius: 20px;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            border: 2px solid #1e293b;
-            background: var(--card-bg);
-            background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 0%, transparent 60%);
+            padding: 18px;
+            border: 2px solid rgba(255,255,255,0.08);
+            background: rgba(10, 15, 30, 0.85);
+            backdrop-filter: blur(8px);
         }
-
+        /* Рубашка – с блестящими звёздами */
         .card-back {
-            background: radial-gradient(circle at 50% 50%, #0b1a3a 0%, #02040a 100%);
-            border-color: #7c3aed;
+            background: radial-gradient(circle at 30% 40%, #1a1a3e, #060814);
             justify-content: center;
             align-items: center;
-            z-index: 2;
+            border-color: #7c3aed;
+            overflow: hidden;
+        }
+        .card-back::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 30%, rgba(255,215,0,0.15) 0%, transparent 50%);
+            animation: sparkle 4s infinite alternate;
+        }
+        @keyframes sparkle {
+            0% { transform: translate(-30%, -30%); opacity: 0.3; }
+            100% { transform: translate(30%, 30%); opacity: 0.8; }
         }
         .card-back i {
-            font-size: 4rem;
-            background: linear-gradient(45deg, var(--neon-blue), #7c3aed);
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #fbbf24, #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.4));
+            filter: drop-shadow(0 0 25px rgba(124, 58, 237, 0.5));
+            z-index: 1;
         }
-
         .card-front {
             transform: rotateY(180deg);
             justify-content: space-between;
             align-items: center;
             border-width: 2px;
         }
-        .card-front.is-truth {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
-        }
-        .card-front.is-trap {
-            border-color: var(--neon-red);
-            box-shadow: 0 0 30px rgba(239, 68, 68, 0.15);
-        }
-        .card-front.is-mid {
-            border-color: var(--neon-gold);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.15);
-        }
+        .card-front.is-truth { border-color: #34d399; box-shadow: 0 0 30px rgba(52, 211, 153, 0.2); }
+        .card-front.is-trap { border-color: #f87171; box-shadow: 0 0 30px rgba(248, 113, 113, 0.2); }
+        .card-front.is-mid { border-color: #fbbf24; box-shadow: 0 0 30px rgba(251, 191, 36, 0.2); }
 
         .card-type {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 900;
             letter-spacing: 1px;
             text-align: center;
         }
-        .card-type.truth { color: var(--neon-green); text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
-        .card-type.trap { color: var(--neon-red); text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
-        .card-type.mid { color: var(--neon-gold); text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
-
+        .card-type.truth { color: #34d399; }
+        .card-type.trap { color: #f87171; }
+        .card-type.mid { color: #fbbf24; }
         .card-slot {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: #fff;
+            color: #f8fafc;
             text-align: center;
             margin: 10px 0;
+            flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-grow: 1;
             line-height: 1.3;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
         .card-cost {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            color: var(--neon-gold);
+            font-size: 1.2rem;
+            color: #fbbf24;
             background: rgba(0,0,0,0.4);
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 10px;
-            border: 1px solid #1e293b;
+            border: 1px solid rgba(255,255,255,0.05);
             width: 100%;
             text-align: center;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
         }
 
-        /* ПОДСКАЗКИ ДЛЯ БАТИ (CHEAT) */
-        body.cheat-visible .card-back {
-            opacity: 0 !important;
-        }
-        body.cheat-visible .cheat-hint {
-            display: flex !important;
-        }
-
+        /* ПОДСКАЗКИ ДЛЯ БАТИ (CHEAT) – теперь без лишних букв */
+        body.cheat-visible .card-back { opacity: 0 !important; }
+        body.cheat-visible .cheat-hint { display: flex !important; }
         .cheat-hint {
             display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(8px);
-            color: #fff;
-            padding: 16px 20px;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(12px);
+            padding: 14px 18px;
             border-radius: 16px;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 40px rgba(0, 242, 255, 0.7);
+            border: 2px solid #00f2ff;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.7);
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-align: center;
             z-index: 30;
             pointer-events: none;
             flex-direction: column;
-            gap: 6px;
-            min-width: 140px;
+            gap: 4px;
+            min-width: 120px;
+            color: #fff;
         }
-        .cheat-hint .hint-type {
-            font-weight: 900;
-            font-size: 1.2rem;
-        }
-        .cheat-hint .hint-type.truth { color: var(--neon-green); }
-        .cheat-hint .hint-type.trap { color: var(--neon-red); }
-        .cheat-hint .hint-type.mid { color: var(--neon-gold); }
-        .cheat-hint .hint-slot { font-size: 0.9rem; color: #cbd5e1; }
-        .cheat-hint .hint-cost { color: var(--neon-gold); font-size: 1.1rem; }
+        .cheat-hint .hint-type { font-weight: 900; font-size: 1.3rem; }
+        .cheat-hint .hint-type.truth { color: #34d399; }
+        .cheat-hint .hint-type.trap { color: #f87171; }
+        .cheat-hint .hint-type.mid { color: #fbbf24; }
+        .cheat-hint .hint-slot { font-size: 0.8rem; color: #cbd5e1; }
+        .cheat-hint .hint-cost { color: #fbbf24; font-size: 1rem; }
 
-        /* ИВЕНТ ОВЕРЛЕЙ */
+        /* ИВЕНТЫ – ещё ярче */
         .event-overlay {
             background: linear-gradient(135deg, #1e1b4b, #090514);
-            border: 2px solid var(--neon-gold);
-            border-radius: 20px;
+            border: 2px solid #fbbf24;
+            border-radius: 24px;
             padding: 30px;
             display: none;
             text-align: center;
-            margin-bottom: 40px;
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.2);
-            animation: pulse-border 2s infinite;
+            margin-bottom: 35px;
+            box-shadow: 0 0 50px rgba(251, 191, 36, 0.15);
+            animation: pulseGlow 2s infinite;
+            position: relative;
+            z-index: 1;
         }
-        @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.2); }
-            50% { box-shadow: 0 0 50px rgba(251, 191, 36, 0.4); }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.1); }
+            50% { box-shadow: 0 0 60px rgba(251, 191, 36, 0.3); }
         }
         .event-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
-            color: var(--neon-gold);
+            color: #fbbf24;
             font-weight: 900;
-            margin-bottom: 12px;
-            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
         .event-desc {
             font-size: 1.05rem;
-            margin-bottom: 20px;
             color: #cbd5e1;
             white-space: pre-line;
             line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        /* ПАНЕЛЬ ВВОДА ВЫИГРЫША */
         .payout-panel {
-            background: #090d1a;
-            border: 2px solid #1e293b;
-            border-radius: 16px;
-            padding: 25px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 20px;
             display: none;
             gap: 15px;
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
         }
         .payout-input {
-            background: #04060f;
-            border: 1px solid #334155;
+            background: #0b0e1a;
+            border: 1px solid #1e293b;
             padding: 12px 20px;
             border-radius: 12px;
             color: #fff;
             font-family: 'Orbitron', sans-serif;
             font-size: 1.2rem;
-            width: 260px;
+            width: 240px;
             outline: none;
             text-align: center;
-            transition: all 0.2s;
         }
-        .payout-input:focus {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
-        }
+        .payout-input:focus { border-color: #00f2ff; box-shadow: 0 0 25px rgba(0,242,255,0.2); }
 
-        /* ЖУРНАЛ */
         .logs-box {
-            margin-top: 35px;
-            background: #04060f;
-            border: 1px solid #151f32;
+            margin-top: 30px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 16px;
-            padding: 18px;
+            padding: 15px;
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
         }
         .logs-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .logs-title {
-            font-size: 0.8rem;
-            color: #475569;
+            font-size: 0.7rem;
+            color: #64748b;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-weight: bold;
         }
         .logs-content {
-            height: 120px;
+            height: 110px;
             overflow-y: auto;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #94a3b8;
             line-height: 1.5;
-            padding-right: 5px;
         }
         .log-line {
-            margin-bottom: 5px;
-            border-left: 3px solid #1e293b;
             padding-left: 10px;
+            border-left: 3px solid #1e293b;
+            margin-bottom: 4px;
         }
-        .log-line.success { border-left-color: var(--neon-green); color: #34d399; background: rgba(16, 185, 129, 0.03); }
-        .log-line.fail { border-left-color: var(--neon-red); color: #f87171; background: rgba(239, 68, 68, 0.03); }
-        .log-line.mid { border-left-color: var(--neon-gold); color: #fbbf24; background: rgba(251, 191, 36, 0.03); }
-        .log-line.info { border-left-color: var(--neon-blue); color: #93c5fd; }
+        .log-line.success { border-left-color: #34d399; color: #6ee7b7; }
+        .log-line.fail { border-left-color: #f87171; color: #fca5a5; }
+        .log-line.mid { border-left-color: #fbbf24; color: #fde68a; }
+        .log-line.info { border-left-color: #00f2ff; color: #93c5fd; }
 
         .cheat-indicator {
             position: absolute;
-            bottom: -22px;
-            left: 10px;
-            font-size: 0.7rem;
+            bottom: -18px;
+            left: 12px;
+            font-size: 0.6rem;
             color: #334155;
             cursor: pointer;
-            transition: color 0.2s;
+            z-index: 2;
         }
         .cheat-indicator:hover { color: #64748b; }
 
-        /* АДАПТИВНОСТЬ */
+        /* Адаптив */
         @media (max-width: 800px) {
             .quest-container { padding: 20px; }
             .header { flex-direction: column; align-items: stretch; }
-            .header-left h1 { font-size: 1.8rem; }
+            .header-left h1 { font-size: 1.6rem; }
             .header-right { justify-content: flex-end; }
-            .game-desk { gap: 15px; }
-            .poker-card-wrapper { width: 170px; height: 260px; }
-            .card-slot { font-size: 1rem; }
+            .poker-card-wrapper { width: 160px; height: 240px; }
+            .card-slot { font-size: 0.9rem; }
             .card-cost { font-size: 1rem; }
-            .cheat-hint { font-size: 0.8rem; padding: 10px; min-width: 100px; }
+            .cheat-hint { font-size: 0.8rem; min-width: 90px; }
         }
         @media (max-width: 550px) {
-            .poker-card-wrapper { width: 130px; height: 200px; }
-            .card-type { font-size: 0.7rem; }
-            .card-slot { font-size: 0.8rem; }
-            .card-cost { font-size: 0.8rem; }
+            .poker-card-wrapper { width: 120px; height: 180px; }
+            .card-type { font-size: 0.6rem; }
+            .card-slot { font-size: 0.7rem; }
+            .card-cost { font-size: 0.7rem; }
             .cheat-hint { font-size: 0.6rem; padding: 6px; min-width: 70px; }
         }
     </style>
 </head>
 <body>
-
 <div class="quest-container">
     <!-- ХЕДЕР -->
     <div class="header">
         <div class="header-left">
-            <h1>МЮНХЕНСКИЙ ЭКСПРЕСС</h1>
-            <div class="subtitle">Психологический покер-батл Лёхи и Бати</div>
+            <h1>🚂 Мюнхенский Экспресс</h1>
+            <div class="subtitle">Покер-батл Лёхи и Бати</div>
         </div>
         <div class="header-right">
             <button class="btn-cyber" onclick="toggleRules()"><i class="fas fa-book-open"></i> Правила</button>
-            <button class="btn-cyber" onclick="resetQuest()" style="border-color: rgba(239,68,68,0.3);"><i class="fas fa-undo"></i> Сброс</button>
-            <div class="balance-container" style="display: flex; align-items: center; gap: 8px;">
+            <button class="btn-cyber" onclick="resetQuest()" style="border-color:rgba(248,113,113,0.3);"><i class="fas fa-undo"></i> Сброс</button>
+            <div class="balance-container" style="display:flex;align-items:center;gap:8px;">
                 <div class="balance-box">
                     <span>Капитал</span>
                     <strong id="displayBalance">1 000 000 ₽</strong>
                 </div>
-                <button class="btn-cyber" style="padding: 14px;" onclick="promptManualBalance()" title="Изменить баланс вручную"><i class="fas fa-cog"></i></button>
+                <button class="btn-cyber" style="padding:12px;" onclick="promptManualBalance()"><i class="fas fa-cog"></i></button>
             </div>
         </div>
     </div>
 
     <!-- ПРАВИЛА -->
     <div class="rules-block" id="rulesBlock">
-        <h2>📜 ПОЛНЫЕ ПРАВИЛА КВЕСТА</h2>
-        <h3>1. Цель</h3>
-        <p>Пройти <span class="rules-accent">15 Ступеней</span> от Мюнхена до Берлина, сохранив минимум <span class="rules-accent">650 000 ₽</span> из стартового миллиона.</p>
-        <h3>2. Обычный раунд</h3>
+        <h2>📜 Правила</h2>
+        <h3>Цель</h3>
+        <p>Пройти <span class="rules-accent">15 ступеней</span> от Мюнхена до Берлина, сохранив минимум <span class="rules-accent">650 000 ₽</span>.</p>
+        <h3>Как играть</h3>
         <ul>
-            <li>Лёха закрывает глаза, Батя нажимает <span class="rules-accent">Ctrl+B</span> – на картах появляются подсказки.</li>
-            <li>Батя видит, где <strong>😇 ПРАВДА</strong> (дешёвый слот), <strong>⚖️ СРЕДНЯЯ</strong> (со скидкой на следующий раунд) и <strong>💀 КАПКАН</strong> (дорогой).</li>
-            <li>Лёха выбирает карту, она переворачивается, и вы крутите бонуску.</li>
+            <li>Лёха закрывает глаза, Батя нажимает <span class="rules-accent">Ctrl+B</span> – видит подсказки на картах.</li>
+            <li>Лёха выбирает карту – она переворачивается, вы крутите бонуску.</li>
+            <li>На ступенях 13–15 появляется <span class="rules-accent">третья карта</span> – выбор сложнее.</li>
         </ul>
-        <h3>3. Ивенты</h3>
+        <h3>Ивенты</h3>
         <ul>
-            <li><strong>Ступень 4 – Контрольная точка:</strong> Лёха может выбрать «Средний путь» (купить бонуску по средней цене) или «Сложный путь» (угадать карту, но при ошибке следующая покупка станет дороже в 1.5 раза).</li>
-            <li><strong>Ступень 8 – Бунт:</strong> Лёха и Батя меняются ролями.</li>
-            <li><strong>Ступень 12 – Народный инвестор:</strong> зритель выбирает слот; за x200 – 5 000 ₽, за x500 – 10 000 ₽.</li>
+            <li><strong>🚨 Контрольная точка:</strong> выбор средней цены или риск со штрафом.</li>
+            <li><strong>🔄 Бунт:</strong> Лёха и Батя меняются ролями.</li>
+            <li><strong>🎰 Народный инвестор:</strong> зритель выбирает слот; за x200 – 5 000 ₽, за x500 – 10 000 ₽.</li>
         </ul>
-        <h3>4. Финальный блок (ступени 13–15)</h3>
-        <p>Появляется <span class="rules-accent">третья карта</span>. Выбор становится сложнее: каждый вариант даёт свои бонусы или штрафы.</p>
-        <button class="btn-action" style="margin-top: 15px; padding: 10px 25px; font-size: 0.8rem;" onclick="toggleRules()">Закрыть</button>
+        <button class="btn-action" style="margin-top:15px;padding:10px 20px;font-size:0.8rem;" onclick="toggleRules()">Закрыть</button>
     </div>
 
     <!-- ПРОГРЕСС -->
@@ -612,14 +615,13 @@
 
     <!-- ИВЕНТ -->
     <div class="event-overlay" id="eventOverlay">
-        <div class="event-title" id="eventTitle">ИВЕНТ</div>
+        <div class="event-title" id="eventTitle">Ивент</div>
         <div class="event-desc" id="eventDesc">Описание</div>
         <div id="eventActions"></div>
     </div>
 
     <!-- ИГРОВОЙ СТОЛ -->
     <div class="game-desk" id="gameDesk">
-        <!-- Карта A -->
         <div class="poker-card-wrapper" id="cardWrapperA" onclick="chooseCard('A')">
             <div class="poker-card">
                 <div class="card-face-side card-back"><i class="fas fa-bolt"></i></div>
@@ -629,14 +631,12 @@
                     <div class="card-cost" id="cardACost">0 ₽</div>
                 </div>
                 <div class="cheat-hint" id="cheatHintA">
-                    <div class="hint-type" id="hintTypeA">😇 ПРАВДА</div>
+                    <div class="hint-type" id="hintTypeA">😇</div>
                     <div class="hint-slot" id="hintSlotA">Слот</div>
                     <div class="hint-cost" id="hintCostA">0 ₽</div>
                 </div>
             </div>
         </div>
-
-        <!-- Карта B -->
         <div class="poker-card-wrapper" id="cardWrapperB" onclick="chooseCard('B')">
             <div class="poker-card">
                 <div class="card-face-side card-back"><i class="fas fa-bolt"></i></div>
@@ -646,24 +646,22 @@
                     <div class="card-cost" id="cardBCost">0 ₽</div>
                 </div>
                 <div class="cheat-hint" id="cheatHintB">
-                    <div class="hint-type" id="hintTypeB">💀 КАПКАН</div>
+                    <div class="hint-type" id="hintTypeB">💀</div>
                     <div class="hint-slot" id="hintSlotB">Слот</div>
                     <div class="hint-cost" id="hintCostB">0 ₽</div>
                 </div>
             </div>
         </div>
-
-        <!-- Карта C (появляется в финальном блоке) -->
         <div class="poker-card-wrapper" id="cardWrapperC" onclick="chooseCard('C')" style="display:none;">
             <div class="poker-card">
                 <div class="card-face-side card-back"><i class="fas fa-bolt"></i></div>
                 <div class="card-face-side card-front" id="cardFrontC">
-                    <div class="card-type" id="cardCType">⚖️ СРЕДНЯЯ</div>
+                    <div class="card-type" id="cardCType">⚖️</div>
                     <div class="card-slot" id="cardCSlot">СЛОТ</div>
                     <div class="card-cost" id="cardCCost">0 ₽</div>
                 </div>
                 <div class="cheat-hint" id="cheatHintC">
-                    <div class="hint-type" id="hintTypeC">⚖️ СРЕДНЯЯ</div>
+                    <div class="hint-type" id="hintTypeC">⚖️</div>
                     <div class="hint-slot" id="hintSlotC">Слот</div>
                     <div class="hint-cost" id="hintCostC">0 ₽</div>
                 </div>
@@ -671,9 +669,9 @@
         </div>
     </div>
 
-    <!-- ПАНЕЛЬ ВВОДА ВЫИГРЫША -->
+    <!-- ПАНЕЛЬ ВВОДА -->
     <div class="payout-panel" id="payoutPanel">
-        <div id="payoutPrompt" style="font-weight: bold; font-size: 1.1rem; text-align: center; width: 100%;">Результат бонуски:</div>
+        <div id="payoutPrompt" style="font-weight:bold;text-align:center;width:100%;">Результат бонуски:</div>
         <input type="number" id="payoutInput" class="payout-input" placeholder="Сумма выигрыша в ₽">
         <button class="btn-action" onclick="submitPayout()">Зафиксировать</button>
     </div>
@@ -681,49 +679,41 @@
     <!-- ЖУРНАЛ -->
     <div class="logs-box">
         <div class="logs-header">
-            <div class="logs-title"><i class="fas fa-terminal"></i> Бортовой журнал</div>
-            <button class="btn-cyber" style="padding: 5px 12px; font-size: 0.75rem;" onclick="exportLogs()"><i class="fas fa-download"></i> Экспорт .TXT</button>
+            <div class="logs-title"><i class="fas fa-terminal"></i> Бортжурнал</div>
+            <button class="btn-cyber" style="padding:4px 12px;font-size:0.7rem;" onclick="exportLogs()"><i class="fas fa-download"></i> .TXT</button>
         </div>
         <div class="logs-content" id="logsContent"></div>
     </div>
 
-    <div class="cheat-indicator" onclick="toggleCheatMode()">[Слой управления ОБС / Ctrl+B]</div>
+    <div class="cheat-indicator" onclick="toggleCheatMode()">[ОБС / Ctrl+B]</div>
 </div>
 
 <script>
-// ===================== БАЗА ДАННЫХ 15 СТУПЕНЕЙ =====================
+// ===== БАЗА ДАННЫХ =====
 const QUEST_DATABASE = [
-    // Блок 1: обычные (1-3)
     { id: 1, type: "normal", truth: { slot: "Sugar Rush", cost: 20000 }, trap: { slot: "Sugar Rush 1000", cost: 100000 } },
     { id: 2, type: "normal", truth: { slot: "The Dog House (30 Спинов)", cost: 15000 }, trap: { slot: "Dog House Megaways", cost: 70000 } },
     { id: 3, type: "normal", truth: { slot: "Big Bass Floats My Boat", cost: 15000 }, trap: { slot: "Big Bass Mission Fishin'", cost: 120000 } },
-    // Ступень 4 – ивент "Контрольная точка"
     { id: 4, type: "event", eventType: "patrol" },
-    // 5-7 обычные
     { id: 5, type: "normal", truth: { slot: "Sweet Bonanza", cost: 20000 }, trap: { slot: "Sweet Bonanza 1000", cost: 150000 } },
     { id: 6, type: "normal", truth: { slot: "Zeus vs Hades (ZEUS)", cost: 30000 }, trap: { slot: "Zeus vs Hades (HADES)", cost: 150000 } },
     { id: 7, type: "normal", truth: { slot: "San Quentin (Мин)", cost: 20000 }, trap: { slot: "San Quentin (ТОП)", cost: 200000 } },
-    // Ступень 8 – ивент "Бунт"
     { id: 8, type: "event", eventType: "rebel" },
-    // 9-11 обычные
     { id: 9, type: "normal", truth: { slot: "Tombstone RIP", cost: 15000 }, trap: { slot: "Mental", cost: 250000 } },
     { id: 10, type: "normal", truth: { slot: "Razor Shark", cost: 30000 }, trap: { slot: "Razor Shark (Множитель)", cost: 180000 } },
     { id: 11, type: "normal", truth: { slot: "Retro Tapes (Лёха)", cost: 40000 }, trap: { slot: "Retro Tapes (Батя вслепую)", cost: 120000 } },
-    // Ступень 12 – ивент "Народный инвестор"
     { id: 12, type: "event", eventType: "viewer" },
-    // Финальный блок (13-15) – с тремя картами
-    { id: 13, type: "normal", truth: { slot: "Starlight Princess", cost: 30000 }, mid: { slot: "Gates of Olympus (Средний)", cost: 65000 }, trap: { slot: "Olympus (Батя стопает)", cost: 130000 } },
+    { id: 13, type: "normal", truth: { slot: "Starlight Princess", cost: 30000 }, mid: { slot: "Gates of Olympus", cost: 65000 }, trap: { slot: "Olympus (Батя стопает)", cost: 130000 } },
     { id: 14, type: "normal", truth: { slot: "Dog House Megaways (Липкие)", cost: 50000 }, mid: { slot: "Dog House Megaways (Дождь)", cost: 100000 }, trap: { slot: "Dog House Megaways (Супер)", cost: 200000 } },
-    { id: 15, type: "final" } // финал с тремя картами
+    { id: 15, type: "final" }
 ];
 
-// ===================== СОСТОЯНИЕ =====================
 let state = {
     balance: 1000000,
     currentStepIndex: 0,
-    cardLetters: ['A', 'B'], // какие буквы активны
+    cardLetters: ['A','B'],
     truthCardLetter: 'A',
-    midCardLetter: null, // для трёх карт
+    midCardLetter: null,
     trapCardLetter: 'B',
     selectedCardLetter: null,
     currentActiveCost: 0,
@@ -731,10 +721,11 @@ let state = {
     isCardPicked: false,
     history: [],
     stepResults: {},
-    penaltyMultiplier: 1, // дебафф из ивента "патруль"
+    penaltyMultiplier: 1,
+    pendingPenalty: false
 };
 
-// ===================== АУДИО =====================
+// ===== АУДИО =====
 const AudioEngine = {
     ctx: null,
     init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
@@ -752,35 +743,28 @@ const AudioEngine = {
     },
     click() { this.playTone(600, 'sine', 0.08, 0.15); },
     flip() { this.playTone(300, 'triangle', 0.2, 0.2); setTimeout(()=>this.playTone(450, 'triangle', 0.1, 0.1), 80); },
-    win() { 
-        const notes = [523.25, 659.25, 783.99, 1046.50];
-        notes.forEach((f,i) => setTimeout(() => this.playTone(f, 'sine', 0.3, 0.15), i*120));
-    },
-    fail() {
-        const notes = [293.66, 246.94, 196.00];
-        notes.forEach((f,i) => setTimeout(() => this.playTone(f, 'sawtooth', 0.4, 0.12), i*180));
-    }
+    win() { [523,659,784,1047].forEach((f,i)=>setTimeout(()=>this.playTone(f,'sine',0.3,0.15), i*120)); },
+    fail() { [294,247,196].forEach((f,i)=>setTimeout(()=>this.playTone(f,'sawtooth',0.4,0.12), i*180)); }
 };
 
-// ===================== СОХРАНЕНИЕ =====================
+// ===== СОХРАНЕНИЕ =====
 function loadGameState() {
-    const saved = localStorage.getItem('munich_quest_save_v3');
+    const saved = localStorage.getItem('munich_quest_v4');
     if (saved) {
         try {
-            const parsed = JSON.parse(saved);
-            state.balance = parsed.balance ?? 1000000;
-            state.currentStepIndex = parsed.currentStepIndex ?? 0;
-            state.stepResults = parsed.stepResults ?? {};
-            state.history = parsed.history ?? [];
-            state.penaltyMultiplier = parsed.penaltyMultiplier ?? 1;
+            const p = JSON.parse(saved);
+            state.balance = p.balance ?? 1000000;
+            state.currentStepIndex = p.currentStepIndex ?? 0;
+            state.stepResults = p.stepResults ?? {};
+            state.history = p.history ?? [];
+            state.penaltyMultiplier = p.penaltyMultiplier ?? 1;
             return true;
-        } catch(e) { return false; }
+        } catch(e) {}
     }
     return false;
 }
-
 function saveGameState() {
-    localStorage.setItem('munich_quest_save_v3', JSON.stringify({
+    localStorage.setItem('munich_quest_v4', JSON.stringify({
         balance: state.balance,
         currentStepIndex: state.currentStepIndex,
         stepResults: state.stepResults,
@@ -788,10 +772,9 @@ function saveGameState() {
         penaltyMultiplier: state.penaltyMultiplier
     }));
 }
-
 function resetQuest() {
-    if(confirm("Полностью обнулить квест?")) {
-        localStorage.removeItem('munich_quest_save_v3');
+    if(confirm("Обнулить квест?")) {
+        localStorage.removeItem('munich_quest_v4');
         state.balance = 1000000;
         state.currentStepIndex = 0;
         state.stepResults = {};
@@ -803,14 +786,13 @@ function resetQuest() {
     }
 }
 
-// ===================== ИНИЦИАЛИЗАЦИЯ =====================
+// ===== ИНИЦИАЛИЗАЦИЯ =====
 function initGame() {
     loadGameState();
     renderTimeline();
     updateBalanceDisplay();
-    if (state.history.length === 0) {
-        addLog("Поезд готов к отправке! Батя, жми Ctrl+B для просмотра карт.", "info");
-    } else {
+    if (state.history.length === 0) addLog("Поезд готов! Батя, жми Ctrl+B для просмотра карт.", "info");
+    else {
         const container = document.getElementById('logsContent');
         container.innerHTML = "";
         state.history.forEach(h => {
@@ -822,10 +804,10 @@ function initGame() {
         for (let idx in state.stepResults) {
             const node = document.getElementById(`node_${idx}`);
             if (node) {
-                const res = state.stepResults[idx];
-                if (res === 'truth') node.classList.add('passed_truth');
-                else if (res === 'trap') node.classList.add('passed_trap');
-                else if (res === 'mid') node.classList.add('passed_mid');
+                const r = state.stepResults[idx];
+                if (r === 'truth') node.classList.add('passed_truth');
+                else if (r === 'trap') node.classList.add('passed_trap');
+                else if (r === 'mid') node.classList.add('passed_mid');
             }
         }
     }
@@ -834,22 +816,12 @@ function initGame() {
 
 function toggleRules() { AudioEngine.click(); const b = document.getElementById('rulesBlock'); b.style.display = (b.style.display === 'block') ? 'none' : 'block'; }
 function toggleCheatMode() { document.body.classList.toggle('cheat-visible'); }
-
 function promptManualBalance() {
     AudioEngine.click();
-    const val = prompt("Введите новую сумму:", state.balance);
-    if (val !== null) {
-        const num = parseFloat(val.replace(/\s/g, ''));
-        if (!isNaN(num)) {
-            state.balance = num;
-            updateBalanceDisplay();
-            addLog(`Баланс изменён на ${num.toLocaleString()} ₽`, "info");
-            saveGameState();
-        }
-    }
+    const val = prompt("Новый баланс:", state.balance);
+    if (val !== null) { const num = parseFloat(val.replace(/\s/g,'')); if (!isNaN(num)) { state.balance = num; updateBalanceDisplay(); addLog(`Баланс изменён на ${num.toLocaleString()} ₽`, "info"); saveGameState(); } }
 }
 
-// ===================== ОТРИСОВКА ТАЙМЛАЙНА =====================
 function renderTimeline() {
     const container = document.getElementById('timeline');
     container.innerHTML = '';
@@ -858,67 +830,45 @@ function renderTimeline() {
         node.className = 'step-node';
         node.id = `node_${idx}`;
         let icon = idx + 1;
-        if (step.type === 'event') icon = '<i class="fas fa-star" style="font-size:0.7rem"></i>';
-        if (step.type === 'final') icon = '<i class="fas fa-crown" style="font-size:0.7rem"></i>';
-        node.innerHTML = `<div class="node-circle">${icon}</div><div class="node-label">ST_${String(idx+1).padStart(2, '0')}</div>`;
+        if (step.type === 'event') icon = '⭐';
+        else if (step.type === 'final') icon = '👑';
+        else if (idx < 12) icon = '🚂';
+        node.innerHTML = `<div class="node-circle">${icon}</div><div class="node-label">${idx+1}</div>`;
         container.appendChild(node);
     });
 }
 
-// ===================== ЗАГРУЗКА СТУПЕНИ =====================
 function loadStep(index) {
     if (index >= QUEST_DATABASE.length) { finishQuest(); return; }
-
     state.currentStepIndex = index;
     state.isCardPicked = false;
     state.selectedCardLetter = null;
-
-    // Сбрасываем флип
     document.querySelectorAll('.poker-card-wrapper').forEach(w => w.classList.remove('flipped'));
     document.getElementById('gameDesk').style.display = 'flex';
     document.getElementById('payoutPanel').style.display = 'none';
     document.getElementById('eventOverlay').style.display = 'none';
 
-    // Обновляем активную ноду
     QUEST_DATABASE.forEach((_, i) => {
         const node = document.getElementById(`node_${i}`);
-        if(node) {
-            node.classList.remove('active');
-            if (i === index) node.classList.add('active');
-        }
+        if(node) { node.classList.remove('active'); if (i === index) node.classList.add('active'); }
     });
 
     const step = QUEST_DATABASE[index];
-    const isFinalBlock = (index >= 12); // 13-15 индексы (0-based)
-
-    // Определяем, сколько карт показывать: 2 или 3
+    const isFinalBlock = (index >= 12);
     if (isFinalBlock || step.type === 'final') {
-        showCard('C', true);
-        state.cardLetters = ['A', 'B', 'C'];
+        document.getElementById('cardWrapperC').style.display = 'block';
+        state.cardLetters = ['A','B','C'];
     } else {
-        showCard('C', false);
-        state.cardLetters = ['A', 'B'];
+        document.getElementById('cardWrapperC').style.display = 'none';
+        state.cardLetters = ['A','B'];
     }
 
-    if (step.type === 'normal') {
-        setupNormalCards(step, isFinalBlock);
-    } else if (step.type === 'event') {
-        setupEventStage(step.eventType);
-    } else if (step.type === 'final') {
-        setupFinalStage();
-    }
+    if (step.type === 'normal') setupNormalCards(step, isFinalBlock);
+    else if (step.type === 'event') setupEventStage(step.eventType);
+    else if (step.type === 'final') setupFinalStage();
     saveGameState();
 }
 
-function showCard(letter, show) {
-    const wrapper = document.getElementById(`cardWrapper${letter}`);
-    if (wrapper) {
-        wrapper.style.display = show ? 'block' : 'none';
-        wrapper.classList.remove('flipped');
-    }
-}
-
-// ===================== НАСТРОЙКА КАРТ (универсальная) =====================
 function configureCardFront(letter, typeText, typeClass, slotName, cost) {
     const front = document.getElementById(`cardFront${letter}`);
     front.className = `card-face-side card-front is-${typeClass}`;
@@ -939,75 +889,62 @@ function configureCardFront(letter, typeText, typeClass, slotName, cost) {
     hintCost.innerText = cost.toLocaleString() + " ₽";
 }
 
-// ===================== ОБЫЧНЫЕ КАРТЫ =====================
 function setupNormalCards(step, hasMid) {
     const letters = state.cardLetters;
-    // Случайно распределяем роли
     const shuffled = [...letters];
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    // Первая – правда, вторая – средняя (если есть), третья – капкан
     state.truthCardLetter = shuffled[0];
     state.trapCardLetter = shuffled[shuffled.length - 1];
     state.midCardLetter = hasMid ? shuffled[1] : null;
 
-    // Применяем штрафной множитель к стоимости капкана (если есть)
-    let trapCost = step.trap.cost * state.penaltyMultiplier;
-    trapCost = Math.round(trapCost / 1000) * 1000; // округляем до тысяч
-
-    configureCardFront(state.truthCardLetter, "😇 ПРАВДА (Безопасная)", "truth", step.truth.slot, step.truth.cost);
-    
+    let trapCost = Math.round(step.trap.cost * state.penaltyMultiplier / 1000) * 1000;
+    configureCardFront(state.truthCardLetter, "😇 ПРАВДА", "truth", step.truth.slot, step.truth.cost);
     if (hasMid && state.midCardLetter) {
         const midCost = Math.round((step.truth.cost + trapCost) / 2 / 1000) * 1000;
-        configureCardFront(state.midCardLetter, "⚖️ СРЕДНЯЯ (Скидка 10% на след. раунд)", "mid", step.mid.slot, midCost);
+        configureCardFront(state.midCardLetter, "⚖️ СРЕДНЯЯ", "mid", step.mid.slot, midCost);
     }
-    
-    configureCardFront(state.trapCardLetter, "💀 КАПКАН (Дорогой)", "trap", step.trap.slot, trapCost);
-
-    addLog(`Ступень ${step.id}. Карты готовы. Лёха закрывает глаза, Батя жмёт Ctrl+B.`);
+    configureCardFront(state.trapCardLetter, "💀 КАПКАН", "trap", step.trap.slot, trapCost);
+    addLog(`Ступень ${step.id}. Карты готовы.`, "info");
 }
 
-// ===================== ИВЕНТЫ =====================
 function setupEventStage(type) {
     document.getElementById('gameDesk').style.display = 'none';
     const overlay = document.getElementById('eventOverlay');
-    const actions = document.getElementById('eventActions');
     overlay.style.display = 'block';
+    const actions = document.getElementById('eventActions');
     actions.innerHTML = '';
-
     if (type === 'patrol') {
-        document.getElementById('eventTitle').innerText = "🚨 КОНТРОЛЬНАЯ ТОЧКА";
-        document.getElementById('eventDesc').innerText = "Полиция остановила поезд для проверки документов!\n\nВыберите путь:\n1. «Средний путь» – купить бонуску по средней цене без угадывания (гарантированный проход).\n2. «Сложный путь» – угадать карту, но если ошибётесь, следующая бонуска будет стоить в 1.5 раза дороже!";
+        document.getElementById('eventTitle').innerText = "🚨 Контрольная точка";
+        document.getElementById('eventDesc').innerText = "Выберите путь:\n1. «Средний» – купить бонуску по средней цене (гарантия).\n2. «Сложный» – угадать карту, но при ошибке следующая бонуска дороже в 1.5 раза.";
         actions.innerHTML = `
-            <button class="btn-action" style="background:var(--neon-gold); color:#000; margin-right:15px;" onclick="handlePatrolDecision('mid')">Средний путь (≈${getMidPrice()} ₽)</button>
-            <button class="btn-action" style="background:var(--neon-blue);" onclick="handlePatrolDecision('hard')">Сложный путь (риск)</button>
+            <button class="btn-action" style="background:#fbbf24;color:#000;margin-right:15px;" onclick="handlePatrolDecision('mid')">Средний путь (≈${getMidPrice()} ₽)</button>
+            <button class="btn-action" style="background:#00f2ff;" onclick="handlePatrolDecision('hard')">Сложный путь (риск)</button>
         `;
     } else if (type === 'rebel') {
-        document.getElementById('eventTitle').innerText = "🔄 БУНТ НА КОРАБЛЕ";
-        document.getElementById('eventDesc').innerText = "Лёха перехватывает инициативу! Батя закрывает глаза.\nТеперь Лёха жмёт Ctrl+B, смотрит карты и пытается обмануть Батю.";
-        actions.innerHTML = `<button class="btn-action" onclick="startRebelRound()">Лёха посмотрел, начинаем блеф!</button>`;
+        document.getElementById('eventTitle').innerText = "🔄 Бунт на корабле";
+        document.getElementById('eventDesc').innerText = "Лёха и Батя меняются ролями! Лёха смотрит карты, Батя отгадывает.";
+        actions.innerHTML = `<button class="btn-action" onclick="startRebelRound()">Лёха посмотрел, погнали!</button>`;
     } else if (type === 'viewer') {
-        document.getElementById('eventTitle').innerText = "🎰 НАРОДНЫЙ ИНВЕСТОР";
-        document.getElementById('eventDesc').innerText = "Лёха крутит чат и выбирает случайного зрителя.\nОн пишет СЛОТ и СУММУ (20 000 – 150 000 ₽).\n\n🎁 БОНУСЫ: x200 → +5 000 ₽ зрителю, x500 → +10 000 ₽!";
+        document.getElementById('eventTitle').innerText = "🎰 Народный инвестор";
+        document.getElementById('eventDesc').innerText = "Лёха выбирает зрителя в чате. Тот пишет слот и сумму (20 000 – 150 000 ₽).\nx200 → +5 000 ₽ зрителю, x500 → +10 000 ₽!";
         actions.innerHTML = `
-            <div style="margin-bottom:20px; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-                <input type="text" id="vSlot" class="payout-input" placeholder="Название слота" style="width:220px;">
+            <div style="margin-bottom:20px;display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
+                <input type="text" id="vSlot" class="payout-input" placeholder="Слот" style="width:220px;">
                 <input type="number" id="vCost" class="payout-input" placeholder="Сумма (20к-150к)" style="width:200px;">
             </div>
-            <button class="btn-action" style="background:var(--neon-gold); color:#000;" onclick="submitViewerEvent()">Запустить народный слот</button>
+            <button class="btn-action" style="background:#fbbf24;color:#000;" onclick="submitViewerEvent()">Запустить</button>
         `;
     }
 }
 
 function getMidPrice() {
-    // Вычисляем среднюю цену из текущего шага (если есть)
     const step = QUEST_DATABASE[state.currentStepIndex];
     if (step && step.truth && step.trap) {
         const trapCost = step.trap.cost * state.penaltyMultiplier;
-        const mid = Math.round((step.truth.cost + trapCost) / 2 / 1000) * 1000;
-        return mid;
+        return Math.round((step.truth.cost + trapCost) / 2 / 1000) * 1000;
     }
     return 60000;
 }
@@ -1015,22 +952,17 @@ function getMidPrice() {
 function handlePatrolDecision(choice) {
     AudioEngine.click();
     if (choice === 'mid') {
-        // Средний путь – покупаем бонуску по средней цене, без угадывания
-        const step = QUEST_DATABASE[state.currentStepIndex];
         const midPrice = getMidPrice();
         state.stepResults[state.currentStepIndex] = 'mid';
-        addLog(`Лёха выбрал «Средний путь» – купил бонуску за ${midPrice.toLocaleString()} ₽.`, "mid");
+        addLog(`Лёха выбрал «Средний путь» – бонуска за ${midPrice.toLocaleString()} ₽.`, "mid");
         document.getElementById('eventOverlay').style.display = 'none';
         activateSlotExecution("Средний слот (гарантия)", midPrice);
     } else {
-        // Сложный путь – угадываем карту, но если ошибка, то множитель штрафа
-        addLog("Лёха выбрал «Сложный путь». Карты активированы, Батя молчит.", "info");
+        addLog("Лёха выбрал «Сложный путь». Карты активированы.", "info");
         document.getElementById('eventOverlay').style.display = 'none';
         document.getElementById('gameDesk').style.display = 'flex';
-        // Подготавливаем обычные карты, но с флагом, что штраф активен
         const step = QUEST_DATABASE[state.currentStepIndex];
-        setupNormalCards(step, false); // без средней карты
-        // Устанавливаем флаг, что при ошибке будет штраф
+        setupNormalCards(step, false);
         state.pendingPenalty = true;
     }
 }
@@ -1041,7 +973,7 @@ function startRebelRound() {
     document.getElementById('gameDesk').style.display = 'flex';
     const step = QUEST_DATABASE[state.currentStepIndex];
     setupNormalCards(step, false);
-    addLog("Раунд запущен! Батя отгадывает, Лёха блефует.");
+    addLog("Бунт! Батя отгадывает, Лёха блефует.", "info");
 }
 
 function submitViewerEvent() {
@@ -1055,15 +987,13 @@ function submitViewerEvent() {
     AudioEngine.win();
     document.getElementById('eventOverlay').style.display = 'none';
     state.stepResults[state.currentStepIndex] = 'mid';
-    activateSlotExecution(`Народный Выбор: ${slot}`, cost);
-    document.getElementById('payoutPrompt').innerHTML = `🎰 Бонуска зрителя: <strong>${slot}</strong> за <strong>${cost.toLocaleString()} ₽</strong>.<br><span style="color:var(--neon-gold)">x200 = +5k, x500 = +10k зрителю!</span><br><br>Введите итог:`;
+    activateSlotExecution(`Народный: ${slot}`, cost);
+    document.getElementById('payoutPrompt').innerHTML = `🎰 Бонуска зрителя: <strong>${slot}</strong> за <strong>${cost.toLocaleString()} ₽</strong>.<br><span style="color:#fbbf24;">x200 → +5k, x500 → +10k</span><br><br>Введите итог:`;
 }
 
-// ===================== ФИНАЛЬНЫЙ РАУНД (3 карты) =====================
 function setupFinalStage() {
     const pot = state.balance;
-    // Генерируем три варианта
-    const letters = ['A', 'B', 'C'];
+    const letters = ['A','B','C'];
     const shuffled = [...letters];
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1073,102 +1003,64 @@ function setupFinalStage() {
     state.midCardLetter = shuffled[1];
     state.trapCardLetter = shuffled[2];
 
-    // Правда – одна бонуска на все деньги, но с низкой волатильностью
-    configureCardFront(state.truthCardLetter, "👑 ФИНАЛ: ВА-БАНК (Спокойный)", "truth", "Одна бонуска на ВСЕ деньги в Sweet Bonanza 1000 (нажимают вместе)", pot);
-    // Средняя – разделить сумму и крутить разные слоты
+    configureCardFront(state.truthCardLetter, "👑 ФИНАЛ (Спокойный)", "truth", "Sweet Bonanza 1000 на все деньги", pot);
     const midCost = Math.round(pot / 2 / 1000) * 1000;
-    configureCardFront(state.midCardLetter, "⚖️ ФИНАЛ: 50/50", "mid", "Половину крутит Батя, половину – Лёха", midCost);
-    // Капкан – супер-волатильный слот с шансом на x10000
-    configureCardFront(state.trapCardLetter, "💀 ФИНАЛ: АДСКИЙ РИСК", "trap", "Одна бонуска в Mental на ВСЕ деньги (или x0, или x10000)", pot);
-
-    addLog(`🚀 ФИНАЛ – БЕРЛИН! На кону всё: ${pot.toLocaleString()} ₽. Выберите карту!`);
+    configureCardFront(state.midCardLetter, "⚖️ ФИНАЛ 50/50", "mid", "Батя и Лёха делят поровну", midCost);
+    configureCardFront(state.trapCardLetter, "💀 ФИНАЛ (АД)", "trap", "Mental на все деньги (x0 или x10000)", pot);
+    addLog(`🚀 ФИНАЛ – Берлин! На кону ${pot.toLocaleString()} ₽!`, "info");
 }
 
-// ===================== ВЫБОР КАРТЫ =====================
 function chooseCard(letter) {
     if (state.isCardPicked) return;
     state.isCardPicked = true;
     state.selectedCardLetter = letter;
-
     AudioEngine.flip();
     document.querySelectorAll('.poker-card-wrapper').forEach(w => w.classList.add('flipped'));
 
     const isTruth = (letter === state.truthCardLetter);
     const isMid = (letter === state.midCardLetter);
-    const isTrap = (letter === state.trapCardLetter);
-    
     let resultType = 'trap';
     if (isTruth) resultType = 'truth';
     else if (isMid) resultType = 'mid';
-
     state.stepResults[state.currentStepIndex] = resultType;
     const node = document.getElementById(`node_${state.currentStepIndex}`);
-    if (node) {
-        node.classList.add(`passed_${resultType}`);
-    }
+    if (node) node.classList.add(`passed_${resultType}`);
 
-    if (isTruth) {
-        setTimeout(()=>AudioEngine.win(), 400);
-        addLog(`Лёха выбрал ПРАВДУ!`, 'success');
-    } else if (isMid) {
-        setTimeout(()=>AudioEngine.win(), 400);
-        addLog(`Лёха выбрал СРЕДНИЙ ПУТЬ!`, 'mid');
-    } else {
-        setTimeout(()=>AudioEngine.fail(), 400);
-        addLog(`💀 Лёха попал в КАПКАН!`, 'fail');
-        // Если был активен штраф из патруля, применяем его к следующему шагу
-        if (state.pendingPenalty) {
-            state.penaltyMultiplier = 1.5;
-            state.pendingPenalty = false;
-            addLog("⚠️ Штраф активирован! Следующая бонуска будет дороже в 1.5 раза.", "info");
-            saveGameState();
-        }
-    }
+    if (isTruth) { setTimeout(()=>AudioEngine.win(), 400); addLog(`Выбрана ПРАВДА!`, 'success'); }
+    else if (isMid) { setTimeout(()=>AudioEngine.win(), 400); addLog(`Выбран СРЕДНИЙ путь!`, 'mid'); }
+    else { setTimeout(()=>AudioEngine.fail(), 400); addLog(`💀 Выбран КАПКАН!`, 'fail'); if (state.pendingPenalty) { state.penaltyMultiplier = 1.5; state.pendingPenalty = false; addLog("⚠️ Штраф активирован! Следующая бонуска дороже в 1.5x.", "info"); saveGameState(); } }
 
     const slotName = document.getElementById(`card${letter}Slot`).innerText;
     const costText = document.getElementById(`card${letter}Cost`).innerText;
-    const cost = parseInt(costText.replace(/\s/g, ''));
+    const cost = parseInt(costText.replace(/\s/g,''));
     setTimeout(() => activateSlotExecution(slotName, cost), 1200);
 }
 
-// ===================== АКТИВАЦИЯ СЛОТА =====================
 function activateSlotExecution(slotName, cost) {
     state.currentActiveCost = cost;
     state.currentActiveSlot = slotName;
     state.balance -= cost;
     updateBalanceDisplay();
-
     document.getElementById('payoutPanel').style.display = 'flex';
-    document.getElementById('payoutPrompt').innerHTML = `Крутим <strong>${slotName}</strong><br>Списание: <span style="color:var(--neon-red)">-${cost.toLocaleString()} ₽</span><br><br>Введите итоговый выигрыш:`;
+    document.getElementById('payoutPrompt').innerHTML = `Крутим <strong>${slotName}</strong><br>Списание: <span style="color:#f87171;">-${cost.toLocaleString()} ₽</span><br><br>Введите итоговый выигрыш:`;
     saveGameState();
 }
 
-// ===================== ПОДТВЕРЖДЕНИЕ ВЫПЛАТЫ =====================
 function submitPayout() {
     const payout = parseFloat(document.getElementById('payoutInput').value) || 0;
     state.balance += payout;
     updateBalanceDisplay();
-
     const profit = payout - state.currentActiveCost;
     const mult = state.currentActiveCost > 0 ? (payout / state.currentActiveCost) : 0;
     let logStyle = 'info';
     if (profit > 0) logStyle = 'success';
     else if (profit < 0) logStyle = 'fail';
     else logStyle = 'mid';
-
     addLog(`Слот [${state.currentActiveSlot}]: выплата ${payout.toLocaleString()} ₽ | ${profit > 0 ? '+' : ''}${profit.toLocaleString()} ₽ (x${mult.toFixed(1)})`, logStyle);
 
-    // Бонус для зрителя (если ивент)
     if (QUEST_DATABASE[state.currentStepIndex]?.eventType === 'viewer') {
-        if (mult >= 500) {
-            addLog(`🎉 x${mult.toFixed(0)}! Зритель получает 10 000 ₽!`, 'success');
-            state.balance -= 10000;
-            updateBalanceDisplay();
-        } else if (mult >= 200) {
-            addLog(`🎉 x${mult.toFixed(0)}! Зритель получает 5 000 ₽!`, 'success');
-            state.balance -= 5000;
-            updateBalanceDisplay();
-        }
+        if (mult >= 500) { addLog(`🎉 x${mult.toFixed(0)}! Зрителю 10 000 ₽!`, 'success'); state.balance -= 10000; updateBalanceDisplay(); }
+        else if (mult >= 200) { addLog(`🎉 x${mult.toFixed(0)}! Зрителю 5 000 ₽!`, 'success'); state.balance -= 5000; updateBalanceDisplay(); }
     }
 
     document.getElementById('payoutInput').value = "";
@@ -1177,7 +1069,6 @@ function submitPayout() {
     setTimeout(() => loadStep(state.currentStepIndex), 1000);
 }
 
-// ===================== ВСПОМОГАТЕЛЬНЫЕ =====================
 function updateBalanceDisplay() {
     document.getElementById('displayBalance').innerText = state.balance.toLocaleString() + " ₽";
 }
@@ -1195,41 +1086,38 @@ function addLog(text, type = 'info') {
 
 function exportLogs() {
     AudioEngine.click();
-    let textData = "=== БОРТОВОЙ ЖУРНАЛ МЮНХЕН-БЕРЛИН ===\n\n";
+    let textData = "=== БОРТЖУРНАЛ ===\n\n";
     document.querySelectorAll('.log-line').forEach(l => textData += l.innerText + "\n");
     const blob = new Blob([textData], { type: 'text/plain;charset=utf-8' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `munich_quest_logs_${new Date().toISOString().slice(0,10)}.txt`;
+    link.download = `munich_logs_${new Date().toISOString().slice(0,10)}.txt`;
     link.click();
 }
 
-// ===================== ФИНИШ =====================
 function finishQuest() {
     document.getElementById('gameDesk').style.display = 'none';
     document.getElementById('payoutPanel').style.display = 'none';
     const overlay = document.getElementById('eventOverlay');
     overlay.style.display = 'block';
-
     if (state.balance >= 650000) {
         AudioEngine.win();
-        document.getElementById('eventTitle').innerText = "🏆 ПОБЕДА! БЕРЛИН ВЗЯТ! 🏆";
-        document.getElementById('eventDesc').innerHTML = `Финальный капитал: <strong>${state.balance.toLocaleString()} ₽</strong>.<br><br>Лёха оплачивает Бати праздничный ужин (или подарок)!`;
+        document.getElementById('eventTitle').innerText = "🏆 ПОБЕДА! БЕРЛИН ВЗЯТ!";
+        document.getElementById('eventDesc').innerHTML = `Финальный капитал: <strong>${state.balance.toLocaleString()} ₽</strong><br><br>Лёха оплачивает Бати ужин (или подарок)!`;
         overlay.style.background = "linear-gradient(135deg, #064e3b, #022c22)";
-        overlay.style.borderColor = "var(--neon-green)";
+        overlay.style.borderColor = "#34d399";
     } else {
         AudioEngine.fail();
-        document.getElementById('eventTitle').innerText = "💀 КРАХ НА ПОДЪЕЗДЕ К БЕРЛИНУ 💀";
-        document.getElementById('eventDesc').innerHTML = `Остаток: <strong>${state.balance.toLocaleString()} ₽</strong> (нужно >650 000 ₽).<br><br>Лёха получает жёсткое наказание от Бати и чата!`;
+        document.getElementById('eventTitle').innerText = "💀 КРАХ НА ПОДЪЕЗДЕ";
+        document.getElementById('eventDesc').innerHTML = `Остаток: <strong>${state.balance.toLocaleString()} ₽</strong> (нужно >650 000 ₽)<br><br>Лёха получает наказание от Бати и чата!`;
         overlay.style.background = "linear-gradient(135deg, #450a0a, #0f0505)";
-        overlay.style.borderColor = "var(--neon-red)";
+        overlay.style.borderColor = "#f87171";
     }
-    localStorage.removeItem('munich_quest_save_v3');
+    localStorage.removeItem('munich_quest_v4');
 }
 
-// ===================== ХОТКЕЙ =====================
-window.addEventListener('keydown', function (e) {
-    if (e.ctrlKey && (e.key === 'b' || e.key === 'И' || e.key === 'B' || e.key === 'и')) {
+window.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (e.key === 'b' || e.key === 'B' || e.key === 'и' || e.key === 'И')) {
         e.preventDefault();
         toggleCheatMode();
     }
