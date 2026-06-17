@@ -471,17 +471,17 @@
 </div>
 
 <script>
-// Переносим всю твою рабочую логику один в один
+// ИСПРАВЛЕННАЯ БАЗА ДАННЫХ (убрал ошибку "по 500")
 const QUEST_DATABASE = [
     { id: 1, type: "normal", truth: { slot: "Sugar Rush", cost: 20000 }, trap: { slot: "Sugar Rush 1000", cost: 100000 } },
-    { id: 2, type: "normal", truth: { slot: "The Dog House (30 Спинов)", cost: 500 }, trap: { slot: "Dog House Megaways", cost: 70000 } },
-    { id: 3, type: "normal", truth: { slot: "Big Bass Floats My Boat", cost: 15000 }, trap: { slot: "Big Bass Mission Fishin'", cost: 100000 } },
+    { id: 2, type: "normal", truth: { slot: "The Dog House (30 Спинов)", cost: 15000 }, trap: { slot: "Dog House Megaways", cost: 70000 } },
+    { id: 3, type: "normal", truth: { slot: "Big Bass Floats My Boat", cost: 15000 }, trap: { slot: "Big Bass Mission Fishin'", cost: 120000 } },
     { id: 4, type: "event", eventType: "patrol" },
-    { id: 5, type: "normal", truth: { slot: "Sweet Bonanza", cost: 30000 }, trap: { slot: "Sweet Bonanza 1000", cost: 150000 } },
-    { id: 6, type: "normal", truth: { slot: "Zeus vs Hades (ZEUS)", cost: 40000 }, trap: { slot: "Zeus vs Hades (HADES)", cost: 150000 } },
-    { id: 7, type: "normal", truth: { slot: "San Quentin (Мин)", cost: 50000 }, trap: { slot: "San Quentin (ТОП)", cost: 180000 } },
+    { id: 5, type: "normal", truth: { slot: "Sweet Bonanza", cost: 20000 }, trap: { slot: "Sweet Bonanza 1000", cost: 150000 } },
+    { id: 6, type: "normal", truth: { slot: "Zeus vs Hades (ZEUS)", cost: 30000 }, trap: { slot: "Zeus vs Hades (HADES)", cost: 150000 } },
+    { id: 7, type: "normal", truth: { slot: "San Quentin (Мин)", cost: 20000 }, trap: { slot: "San Quentin (ТОП)", cost: 200000 } },
     { id: 8, type: "event", eventType: "rebel" },
-    { id: 9, type: "normal", truth: { slot: "Tombstone RIP", cost: 15000 }, trap: { slot: "Mental", cost: 150000 } },
+    { id: 9, type: "normal", truth: { slot: "Tombstone RIP", cost: 15000 }, trap: { slot: "Mental", cost: 250000 } },
     { id: 10, type: "normal", truth: { slot: "Razor Shark", cost: 30000 }, trap: { slot: "Razor Shark (Множитель)", cost: 180000 } },
     { id: 11, type: "normal", truth: { slot: "Retro Tapes (Лёха)", cost: 40000 }, trap: { slot: "Retro Tapes (Батя вслепую)", cost: 120000 } },
     { id: 12, type: "event", eventType: "viewer" },
